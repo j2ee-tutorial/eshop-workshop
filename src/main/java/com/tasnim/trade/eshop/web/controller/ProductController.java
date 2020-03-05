@@ -12,4 +12,13 @@ public class ProductController {
     public String index() {
         return "/product/index";
     }
+
+    @GetMapping("/entry")
+    public String entry() {
+        return "/product/insert";
+    }
+
+    public String save() {
+        return "/product/index";
+    }
 }
