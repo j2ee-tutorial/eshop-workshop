@@ -7,9 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -47,5 +45,19 @@ public class ProductController {
             LOGGER.error("Error during saving product", e);
             return null;
         }
+    }
+
+    @GetMapping("/remove/{id}")
+    public String remove(@PathVariable Long id) {
+        LOGGER.info("Remove entity id: {}", id);
+        service.delete(id);
+        return "redirect:/product/list";
+    }
+
+    @PostMapping("/remove")
+    public String remove(@ModelAttribute(value = "selectedItem") Product product) {
+        LOGGER.info("Remove entity entity-id: {}", product.getId());
+        service.delete(product);
+        return "redirect:/product/list";
     }
 }

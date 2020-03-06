@@ -22,11 +22,20 @@
             </thead>
             <tbody>
             <tr th:if="${#lists.isEmpty(products)}">
-                <td colspan="3">No products available</td>
+                <td colspan="2">No products available</td>
             </tr>
             <tr th:each="product : ${products}">
                 <th scope="row"><span th:text="${product.id}"></span></th>
                 <td><span th:text="${product.name}"></span></td>
+                <td>
+                    <a th:href="@{'/product/remove/' + ${product.id}}">remove</a>
+
+                    <form th:action="@{/product/remove}" th:object="${selectedItem}" method="post">
+                        <input type="hidden" name="id" th:value="${product.id}">
+<!--                        <input type="hidden" name="name" th:value="${product.name}">-->
+                        <input type="submit" value="Remove"/>
+                    </form>
+                </td>
             </tr>
             </tbody>
         </table>
