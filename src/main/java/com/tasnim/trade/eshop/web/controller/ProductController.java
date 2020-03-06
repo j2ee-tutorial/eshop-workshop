@@ -27,22 +27,22 @@ public class ProductController {
         LOGGER.info("Show all products");
         List<Product> products = service.findAll();
         model.addAttribute("products", products);
-        return "/product/index";
+        return "product/index";
     }
 
     @GetMapping("/entry")
     public String entry(Model model) {
         model.addAttribute("product", new Product());
-        return "/product/insert";
+        return "product/insert";
     }
 
     @PostMapping("/save")
-    public String save(Product product) {
+    public String save(Product product, Model model) {
         try {
             LOGGER.info("Saving product");
             service.save(product);
             LOGGER.info("Product saved successfully!");
-            return "/product/index";
+            return "redirect:/product/list";
         } catch (Exception e) {
             LOGGER.error("Error during saving product", e);
             return null;

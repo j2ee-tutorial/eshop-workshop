@@ -21,7 +21,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:if="${products==null || products.empty}">
+            <tr th:if="${#lists.isEmpty(products)}">
                 <td colspan="3">No products available</td>
             </tr>
             <tr th:each="product : ${products}">
