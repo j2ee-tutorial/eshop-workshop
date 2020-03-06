@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Product Entry</title>
@@ -13,6 +13,16 @@
     <a href="/">Home</a>
 
     <h1>Product Entry</h1>
+
+    <form action="#" th:action="@{/product/save}" th:object="${product}" method="post">
+        <p>
+            Name: <input type="text" th:field="*{name}">
+        </p>
+        <p>
+            <input type="submit" value="Submit"/>
+            <a href="/product/index">Cancel</a>
+        </p>
+    </form>
 </div>
 </body>
 </html>
