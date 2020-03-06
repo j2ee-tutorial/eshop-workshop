@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Products</title>
@@ -12,6 +12,26 @@
     <a href="/">Home</a>
 
     <h1>Products</h1>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <td scope="col">ID</td>
+                <td scope="col">Name</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${products==null || products.empty}">
+                <td colspan="3">No products available</td>
+            </tr>
+            <tr th:each="product : ${products}">
+                <th scope="row"><span th:text="${product.id}"></span></th>
+                <td><span th:text="${product.name}"></span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/product/entry">Add</a></p>
 </div>
 </body>
 </html>

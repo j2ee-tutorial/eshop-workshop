@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @RequestMapping("/product")
 @Controller
 public class ProductController {
@@ -21,8 +23,10 @@ public class ProductController {
     ProductService service;
 
     @GetMapping("/list")
-    public String index() {
-        service.findAll();
+    public String index(Model model) {
+        LOGGER.info("Show all products");
+        List<Product> products = service.findAll();
+        model.addAttribute("products", products);
         return "/product/index";
     }
 
