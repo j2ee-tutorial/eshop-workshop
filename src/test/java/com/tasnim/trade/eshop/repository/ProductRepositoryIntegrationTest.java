@@ -11,13 +11,15 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.ANY;
 import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.NONE;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = ANY)
+@AutoConfigureTestDatabase(replace = NONE)
 public class ProductRepositoryIntegrationTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductRepositoryIntegrationTest.class);
 
@@ -53,5 +55,11 @@ public class ProductRepositoryIntegrationTest {
         // when
         Product found = productRepository.findByName(microCannula.getName());
         LOGGER.info(">>>> {} {}", found.getId(), found.getName());
+    }
+
+    @Test
+    public void allProducts() {
+        List<Product> products = productRepository.findAll();
+        LOGGER.info(">>>> Products count: {}", products.size());
     }
 }
