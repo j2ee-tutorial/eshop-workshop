@@ -1,13 +1,25 @@
 package com.tasnim.trade.eshop.to;
 
+import com.tasnim.trade.eshop.to.base.Audit;
+import com.tasnim.trade.eshop.to.base.Auditable;
+import com.tasnim.trade.eshop.to.listener.AuditListener;
+
 import javax.persistence.*;
 
 @MappedSuperclass
-public abstract class EntityBase {
+@EntityListeners(AuditListener.class)
+public class EntityBase implements Auditable {
 
     @Id
     @GeneratedValue(generator = "SEQUENCE_GENERATOR", strategy = GenerationType.SEQUENCE)
     private Long id;
+
+    @Embedded
+    private final Audit audit;
+
+    EntityBase() {
+        audit = new Audit();
+    }
 
     public Long getId() {
         return id;
@@ -15,5 +27,10 @@ public abstract class EntityBase {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public Audit getAudit() {
+        return audit;
     }
 }
