@@ -9,6 +9,8 @@ public interface ProductService {
 
     List<Product> findAll();
 
+    List<Product> findAll(int page, int size);
+
     void delete(Long id);
 
     void delete(Product product);

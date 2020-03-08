@@ -5,6 +5,8 @@ import com.tasnim.trade.eshop.to.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +27,12 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> findAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public List<Product> findAll(int page, int size) {
+        Page<Product> productPage = repository.findAll(PageRequest.of(page, size));
+        return productPage.getContent();
     }
 
     @Override

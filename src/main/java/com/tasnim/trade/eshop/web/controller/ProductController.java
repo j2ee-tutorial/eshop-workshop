@@ -28,6 +28,14 @@ public class ProductController {
         return "product/index";
     }
 
+    @GetMapping("/list/{page}/{size}")
+    public String index(Model model, @PathVariable int page, @PathVariable int size) {
+        LOGGER.info("Show all products");
+        List<Product> products = service.findAll(page, size);
+        model.addAttribute("products", products);
+        return "product/index";
+    }
+
     @GetMapping("/entry")
     public String entry(Model model) {
         model.addAttribute("product", new Product());
