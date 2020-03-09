@@ -35,12 +35,7 @@ public class ProductController {
         int pageSize = size.orElse(5);
 
         Page<Product> productPage = service.findAll(PageRequest.of(currentPage - 1, pageSize));
-
-        model.addAttribute("products", productPage.getContent());
         model.addAttribute("productPage", productPage);
-        model.addAttribute("page", currentPage);
-        model.addAttribute("size", pageSize);
-
         int totalPages = productPage.getTotalPages();
         if (totalPages > 0) {
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
