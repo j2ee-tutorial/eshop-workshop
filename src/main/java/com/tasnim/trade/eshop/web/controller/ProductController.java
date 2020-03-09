@@ -5,11 +5,16 @@ import com.tasnim.trade.eshop.to.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @RequestMapping("/product")
 @Controller
@@ -21,18 +26,28 @@ public class ProductController {
     ProductService service;
 
     @GetMapping("/list")
-    public String index(Model model) {
+    public String index(Model model,
+                        @RequestParam("page") Optional<Integer> page,
+                        @RequestParam("size") Optional<Integer> size) {
         LOGGER.info("Show all products");
-        List<Product> products = service.findAll();
-        model.addAttribute("products", products);
-        return "product/index";
-    }
 
-    @GetMapping("/list/{page}/{size}")
-    public String index(Model model, @PathVariable int page, @PathVariable int size) {
-        LOGGER.info("Show all products");
-        List<Product> products = service.findAll(page, size);
-        model.addAttribute("products", products);
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(5);
+
+        Page<Product> productPage = service.findAll(PageRequest.of(currentPage - 1, pageSize));
+
+        model.addAttribute("products", productPage.getContent());
+        model.addAttribute("productPage", productPage);
+        model.addAttribute("page", currentPage);
+        model.addAttribute("size", pageSize);
+
+        int totalPages = productPage.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
         return "product/index";
     }
 
@@ -46,8 +61,8 @@ public class ProductController {
     public String save(Product product, Model model) {
         try {
             LOGGER.info("Saving product");
-            service.save(product);
-            LOGGER.info("Product saved successfully!");
+            Product product1 = service.save(product);
+            LOGGER.info("Product {} saved successfully!", product1.getId());
             return "redirect:/product/list";
         } catch (Exception e) {
             LOGGER.error("Error during saving product", e);
