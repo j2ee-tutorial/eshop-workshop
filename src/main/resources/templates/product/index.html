@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Products</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
-    <link rel="stylesheet" href="/css/stylesheet.css">
-    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="icon" type="image/png" th:href="@{/favicon.png}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/stylesheet.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
 </head>
 <body>
 <div class="container">
-    <a href="/">Home</a>
+    <a th:href="@{/}">Home</a>
 
     <h1>Products</h1>
     <div class="table-responsive">
@@ -65,7 +65,7 @@
             </ul>
         </nav>
     </div>
-    <p><a href="/product/entry">Add</a></p>
+    <p><a th:href="@{/product/entry}">Add</a></p>
 </div>
 </body>
 </html>
