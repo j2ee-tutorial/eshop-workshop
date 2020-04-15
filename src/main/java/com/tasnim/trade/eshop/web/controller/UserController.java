@@ -24,9 +24,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-//    @Autowired
-//    private SecurityService securityService;
-
     @Autowired
     private UserValidator userValidator;
 
@@ -36,12 +33,14 @@ public class UserController {
     @GetMapping("/login")
     public String login(Model model, String error, String logout) {
         LOGGER.info("Redirecting to login page ...");
-        if (error != null)
+        if (error != null) {
+            LOGGER.warn("Your username and password is invalid.");
             model.addAttribute("error", "Your username and password is invalid.");
-
-        if (logout != null)
+        }
+        if (logout != null) {
+            LOGGER.info("You have been logged out successfully.");
             model.addAttribute("message", "You have been logged out successfully.");
-
+        }
         return "/user/login";
     }
 
@@ -64,6 +63,7 @@ public class UserController {
         }
 
         userService.save(mapper.toUser(user));
+
 
         // securityService.autoLogin(user.getUsername(), user.getPasswordConfirm());
 

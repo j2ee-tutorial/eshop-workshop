@@ -23,7 +23,7 @@
     </appender>
 
     <appender name="CONTAINER" class="ch.qos.logback.core.FileAppender">
-        <file>log-${byDay}.log</file>
+        <file>spring-${byDay}.log</file>
         <append>true</append>
         <encoder>
             <pattern>${FILE_LOG_PATTERN}</pattern>
