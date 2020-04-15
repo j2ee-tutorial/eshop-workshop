@@ -23,18 +23,18 @@
     </appender>
 
     <appender name="CONTAINER" class="ch.qos.logback.core.FileAppender">
-        <file>log-${byDay}.log</file>
+        <file>spring-${byDay}.log</file>
         <append>true</append>
         <encoder>
             <pattern>${FILE_LOG_PATTERN}</pattern>
         </encoder>
     </appender>
 
-    <logger name="com.tasnim.trade.eshop" level="INFO" additivity="false">
+    <logger name="com.tasnim.trade.eshop" level="INFO" additivity="true">
         <appender-ref ref="FILE"/>
     </logger>
 
-    <root level="DEBUG">
+    <root level="INFO">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="CONTAINER"/>
     </root>
