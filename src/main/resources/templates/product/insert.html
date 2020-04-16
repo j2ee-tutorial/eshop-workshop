@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <title>Product Entry</title>
-    <link rel="icon" type="image/png" th:href="@{/favicon.png}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/stylesheet.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+    <div th:replace="fragments/header::head"></div>
 </head>
 <body>
+<div th:replace="fragments/header::header"></div>
 <div class="container">
     <a th:href="@{/}">Home</a>
 
@@ -23,5 +21,6 @@
         </p>
     </form>
 </div>
+<div th:replace="fragments/footer::footer"></div>
 </body>
 </html>

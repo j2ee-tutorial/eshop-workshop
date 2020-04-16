@@ -2,26 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8">
     <title>Home</title>
     <div th:replace="fragments/header::head"></div>
 </head>
 <body>
 <div th:replace="fragments/header::header"></div>
-
-<div sec:authorize="isAuthenticated()">
-    This content is only shown to authenticated users.
-</div>
-<div sec:authorize="hasRole('ROLE_ADMIN')">
-    This content is only shown to administrators.
-</div>
-<div sec:authorize="hasRole('ROLE_USER')">
-    This content is only shown to users.
-</div>
 <div class="container">
     <a th:href="@{/product/list}" class="badge badge-primary">Product List</a>
     <a th:href="@{/product/entry}" class="badge badge-secondary">Add New Product</a>
-
 </div>
+<div th:replace="fragments/footer::footer"></div>
 </body>
 </html>
