@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <div th:fragment="head">
+        <link rel="icon" type="image/png" th:href="@{/favicon.png}">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/stylesheet.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+        <script src="webjars/jquery/3.0.0/jquery.min.js"></script>
+    </div>
+    <meta charset="UTF-8">
+</head>
+<body>
+<div th:fragment="header">
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" th:href="@{/}">
+            <img src="images/logo.png" width="105" height="58" alt="Tasnim">
+        </a>
+    </nav>
+    <div sec:authorize="isAuthenticated()">
+        <span th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</span>
+        <a th:href="@{/logout}">Log out</a>
+    </div>
+</div>
+</body>
+</html>
