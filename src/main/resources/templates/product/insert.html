@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>Product Entry</title>
     <div th:replace="fragments/header::head"></div>
 </head>
 <body>
 <div th:replace="fragments/header::header"></div>
 <div class="container">
-    <a th:href="@{/}">Home</a>
-
     <h1>Product Entry</h1>
 
     <form action="#" th:action="@{/product/save}" th:object="${product}" method="post">

@@ -1,5 +1,6 @@
 package com.tasnim.trade.eshop.service;
 
+import com.tasnim.trade.eshop.api.ProductService;
 import com.tasnim.trade.eshop.repository.ProductRepository;
 import com.tasnim.trade.eshop.to.Product;
 import org.slf4j.Logger;

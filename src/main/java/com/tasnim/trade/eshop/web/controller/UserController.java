@@ -3,18 +3,25 @@ package com.tasnim.trade.eshop.web.controller;
 import com.tasnim.trade.eshop.api.UserMapper;
 import com.tasnim.trade.eshop.api.UserService;
 import com.tasnim.trade.eshop.dto.UserDto;
+import com.tasnim.trade.eshop.to.Product;
+import com.tasnim.trade.eshop.to.User;
 import com.tasnim.trade.eshop.util.JsonUtil;
 import com.tasnim.trade.eshop.web.validator.UserValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import javax.jws.WebParam;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @RequestMapping("/user")
 @Controller
@@ -64,10 +71,41 @@ public class UserController {
 
         userService.save(mapper.toUser(user));
 
-
         // securityService.autoLogin(user.getUsername(), user.getPasswordConfirm());
 
-        LOGGER.info("Redirecting to welcome");
-        return "redirect:/welcome";
+        LOGGER.info("Redirecting to index");
+        return "user/profile";
+    }
+
+    @GetMapping("/profile")
+    public String profile() {
+        return "user/profile";
+    }
+
+    @PostMapping("/save")
+    public String save(UserDto user, Model model) {
+        LOGGER.info(JsonUtil.jsonObject(user));
+        model.addAttribute("user", user);
+        return "user/profile";
+    }
+
+    @GetMapping("/list")
+    public String list(Model model,
+                       @RequestParam("page") Optional<Integer> page,
+                       @RequestParam("size") Optional<Integer> size) {
+        LOGGER.info("Show all products");
+
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(5);
+
+        Page<User> userPage = userService.findAll(PageRequest.of(currentPage - 1, pageSize));
+        model.addAttribute("userPage", userPage);
+        int totalPages = userPage.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }        return "user/index";
     }
 }

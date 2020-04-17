@@ -1,6 +1,6 @@
 package com.tasnim.trade.eshop.web.controller;
 
-import com.tasnim.trade.eshop.service.ProductService;
+import com.tasnim.trade.eshop.api.ProductService;
 import com.tasnim.trade.eshop.to.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +53,7 @@ public class ProductController {
     }
 
     @PostMapping("/save")
-    public String save(Product product, Model model) {
+    public String save(Product product) {
         try {
             LOGGER.info("Saving product");
             Product product1 = service.save(product);
