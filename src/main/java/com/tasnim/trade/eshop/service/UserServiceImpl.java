@@ -30,8 +30,9 @@ public class UserServiceImpl extends ServiceImplBase<User> implements UserServic
 
     @Override
     public User save(User user) {
-        if (repository.existsById(user.getUsername()))
+        if (repository.existsById(user.getUsername())) {
             LOGGER.warn("User {} already exists", user.getUsername());
+        }
         return repository.save(user);
     }
 
