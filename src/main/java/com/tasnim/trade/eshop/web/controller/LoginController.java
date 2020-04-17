@@ -8,6 +8,7 @@ import com.tasnim.trade.eshop.web.validator.UserValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +20,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class LoginController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Autowired
     private UserService userService;
@@ -61,6 +65,7 @@ public class LoginController {
             return "user/registration";
         }
 
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.save(mapper.toUser(user));
 
         // securityService.autoLogin(user.getUsername(), user.getPasswordConfirm());
