@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @MappedSuperclass
 @EntityListeners(AuditListener.class)
-public class EntityBase implements Auditable {
+public abstract class EntityBase implements Auditable {
 
     @Id
     @GeneratedValue(generator = "SEQUENCE_GENERATOR", strategy = GenerationType.SEQUENCE)

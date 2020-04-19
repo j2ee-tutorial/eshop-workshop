@@ -19,8 +19,9 @@ import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTest
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = NONE)
+@AutoConfigureTestDatabase(replace = ANY)
 public class ProductRepositoryIntegrationTest {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductRepositoryIntegrationTest.class);
 
     @Autowired

@@ -8,6 +8,7 @@ A workshop based on react as frontend and spring boot as backend
 $mysql -u root -p
 CREATE DATABASE tasnim;
 CREATE USER tasnim@localhost IDENTIFIED BY '123456';
+SELECT user FROM mysql.user;
 GRANT ALL PRIVILEGES ON tasnim.* TO tasnim@localhost;
 SHOW GRANTS FOR tasnim@localhost;
 ````

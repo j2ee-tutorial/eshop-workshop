@@ -1,12 +1,19 @@
 package com.tasnim.trade.eshop.to;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "USER")
 public class User {
+
+    public User() {
+    }
+
+    public User(String username) {
+        this.username = username;
+    }
 
     @Id
     String username;
@@ -14,6 +21,14 @@ public class User {
     String password;
 
     String email;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "USER_ROLE",
+            joinColumns = @JoinColumn(name = "username", referencedColumnName = "username"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
+    )
+    Set<Role> roles = new HashSet<>();
 
     public String getUsername() {
         return username;
@@ -37,5 +52,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

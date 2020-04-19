@@ -65,7 +65,6 @@ public class LoginController {
             return "user/registration";
         }
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.save(mapper.toUser(user));
 
         // securityService.autoLogin(user.getUsername(), user.getPasswordConfirm());
