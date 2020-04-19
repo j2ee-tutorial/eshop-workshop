@@ -36,7 +36,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (user == null)
             throw new UsernameNotFoundException(username);
         LOGGER.info(JsonUtil.jsonObject(user));
-        Set<GrantedAuthority> grantedAuthorities = user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toSet());
+        Set<GrantedAuthority> grantedAuthorities = user.getRoles()
+                .stream().map(role -> new SimpleGrantedAuthority(role.getName()))
+                .collect(Collectors.toSet());
         LOGGER.info(JsonUtil.jsonObject(grantedAuthorities));
         return new Principal(user.getUsername(), user.getPassword(), grantedAuthorities);
     }

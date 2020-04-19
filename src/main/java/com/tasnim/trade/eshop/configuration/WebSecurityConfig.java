@@ -12,11 +12,15 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
 
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(WebSecurityConfig.class);
+
+    @Autowired
+    AccessDeniedHandler accessDeniedHandler;
 
     @Autowired
     UserDetailsService userDetailsService;
@@ -33,7 +37,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/**").hasRole("USER")
                 .anyRequest().authenticated()
                 .and().formLogin().loginPage("/login").permitAll()
-                .and().logout().permitAll().logoutSuccessUrl("/");
+                .and().logout().permitAll().logoutSuccessUrl("/")
+                .and().exceptionHandling().accessDeniedHandler(accessDeniedHandler);
     }
 
     @Autowired

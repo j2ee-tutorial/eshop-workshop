@@ -59,10 +59,11 @@ public class LoginController {
         LOGGER.info("Save user information");
         LOGGER.info("{}", JsonUtil.jsonObject(user));
 
-        // userValidator.validate(user, bindingResult);
+        userValidator.validate(user, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            return "user/registration";
+            LOGGER.warn("Binding result has errors!");
+            return "registration";
         }
 
         userService.save(mapper.toUser(user));
@@ -84,5 +85,4 @@ public class LoginController {
         model.addAttribute("user", user);
         return "user/profile";
     }
-
 }
