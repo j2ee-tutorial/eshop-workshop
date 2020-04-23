@@ -1,4 +1,4 @@
-package com.tasnim.trade.eshop.configuration;
+package com.tasnim.trade.eshop.configuration.security;
 
 import com.tasnim.trade.eshop.api.RoleService;
 import com.tasnim.trade.eshop.api.UserService;

@@ -1,8 +1,8 @@
 package com.tasnim.trade.eshop.web.validator;
 
 import com.tasnim.trade.eshop.api.UserService;
-import com.tasnim.trade.eshop.configuration.PasswordComplexityConfiguration;
-import com.tasnim.trade.eshop.configuration.UsernameComplexityConfiguration;
+import com.tasnim.trade.eshop.configuration.security.PasswordComplexityConfiguration;
+import com.tasnim.trade.eshop.configuration.security.UsernameComplexityConfiguration;
 import com.tasnim.trade.eshop.dto.UserDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package com.tasnim.trade.eshop.configuration;
+package com.tasnim.trade.eshop.configuration.security;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;

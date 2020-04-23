@@ -1,4 +1,4 @@
-package com.tasnim.trade.eshop.configuration;
+package com.tasnim.trade.eshop.configuration.security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
