@@ -32,6 +32,7 @@ public class SecurityInitializer {
     public void addAdminUser(ApplicationReadyEvent event) {
         User admin = new User("admin");
         admin.getRoles().add(new Role("ADMIN"));
+        admin.getRoles().add(new Role("USER"));
         admin.setPassword(adminPassword);
         userService.save(admin);
     }
