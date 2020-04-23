@@ -23,3 +23,11 @@ MariaDB [tasnim]> show columns from users;
 | password | varchar(255) | YES  |     | NULL    |       |
 +----------+--------------+------+-----+---------+-------+
 ````
+
+## Spring Security with JWT
+### Spring Security Entry Point
+By default, the BasicAuthenticationEntryPoint provisioned by Spring Security returns 
+a full page for a 401 Unauthorized response back to the client. This HTML representation 
+of the error renders well in a browser, but it not well suited for other scenarios, 
+such as a REST API where a json representation may be preferred.
+
