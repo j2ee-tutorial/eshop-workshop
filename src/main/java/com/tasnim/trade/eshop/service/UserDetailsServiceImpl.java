@@ -42,6 +42,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                     return new SimpleGrantedAuthority("ROLE_" + role.getName());
                 }).collect(Collectors.toSet());
         LOGGER.info(JsonUtil.jsonObject(grantedAuthorities));
-        return new Principal(user.getUsername(), user.getPassword(), grantedAuthorities);
+        Principal principal = new Principal(user.getUsername(), user.getPassword(), grantedAuthorities);
+        principal.setEmail(user.getEmail());
+        return principal;
     }
 }

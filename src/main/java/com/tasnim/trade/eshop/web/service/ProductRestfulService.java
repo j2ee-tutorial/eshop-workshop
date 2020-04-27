@@ -4,7 +4,6 @@ import com.tasnim.trade.eshop.api.ProductService;
 import com.tasnim.trade.eshop.dto.Response;
 import com.tasnim.trade.eshop.dto.SuccessfulResponse;
 import com.tasnim.trade.eshop.to.Product;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +23,12 @@ public class ProductRestfulService {
 
     @GetMapping("/top")
     public ResponseEntity<Response> getTopProducts() {
+        List<Product> products = service.getTopProducts();
+        return new ResponseEntity<>(new SuccessfulResponse<>(products), HttpStatus.OK);
+    }
+
+    @GetMapping("/festival")
+    public ResponseEntity<Response> getFestivalProducts() {
         List<Product> products = service.getTopProducts();
         return new ResponseEntity<>(new SuccessfulResponse<>(products), HttpStatus.OK);
     }

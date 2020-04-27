@@ -30,14 +30,14 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
-        LOGGER.info("Jwt Request Filter:");
-        LOGGER.info("URI: {}", request.getRequestURI());
-
+        LOGGER.info("Getting token from URI: {}", request.getRequestURI());
         String contextPath = request.getContextPath();
+        try {
+            if (request.getRequestURI().startsWith(contextPath + "/api")) {
+                setAuthenticationBasedOnToken(request);
+            }
+        }catch (Exception ignored){
 
-        if (request.getRequestURI().startsWith(contextPath + "/api")) {
-            setAuthenticationBasedOnToken(request);
         }
         filterChain.doFilter(request, response);
     }
@@ -49,6 +49,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         // JWT Token is in the form "Bearer token". Remove Bearer word and get only the Token
         final String requestTokenHeader = request.getHeader("Authorization");
+        LOGGER.info("Authorization: {}", requestTokenHeader);
         if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
             jwtToken = requestTokenHeader.substring(7);
             try {
