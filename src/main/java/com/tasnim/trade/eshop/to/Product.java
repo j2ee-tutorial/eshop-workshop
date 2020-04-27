@@ -10,14 +10,47 @@ import javax.persistence.Table;
 @SequenceGenerator(name = "SEQUENCE_GENERATOR", sequenceName = "PRODUCT_SEQ")
 public class Product extends EntityBase {
 
-    @Column(name = "NAME")
-    private String name;
+    @Column(name = "PRODUCT_NAME")
+    private String productName;
 
-    public String getName() {
-        return name;
+    @Column(name = "PRODUCT_CODE")
+    private String productCode;
+
+    @Column(name = "AMOUNT")
+    private Double amount;
+
+    @Column(name = "CURRENCY")
+    private String currency;
+
+    public String getProductName() {
+        return productName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public String getProductCode() {
+        return productCode;
+    }
+
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 }
