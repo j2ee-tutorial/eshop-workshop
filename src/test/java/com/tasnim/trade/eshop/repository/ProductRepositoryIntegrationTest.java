@@ -34,28 +34,28 @@ public class ProductRepositoryIntegrationTest {
     public void whenFindByName_thenReturnEmployee() {
         // given
         Product needle = new Product();
-        needle.setName("Needle");
+        needle.setProductName("Needle");
         entityManager.persist(needle);
         entityManager.flush();
 
         // when
-        Product found = productRepository.findByName(needle.getName());
+        Product found = productRepository.findByProductName(needle.getProductName());
 
         // then
-        assertThat(found.getName())
-                .isEqualTo(needle.getName());
+        assertThat(found.getProductName())
+                .isEqualTo(needle.getProductName());
     }
 
     @Test
     public void saveMicroCannula() {
         Product microCannula = new Product();
-        microCannula.setName("Micro Cannula");
+        microCannula.setProductName("Micro Cannula");
         entityManager.persist(microCannula);
         entityManager.flush();
 
         // when
-        Product found = productRepository.findByName(microCannula.getName());
-        LOGGER.info(">>>> {} {}", found.getId(), found.getName());
+        Product found = productRepository.findByProductName(microCannula.getProductName());
+        LOGGER.info(">>>> {} {}", found.getId(), found.getProductName());
     }
 
     @Test

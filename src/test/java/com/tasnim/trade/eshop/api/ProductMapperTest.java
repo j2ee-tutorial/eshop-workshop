@@ -20,12 +20,12 @@ public class ProductMapperTest {
     public void testMapDtoFromEntity() {
         Product product = new Product();
         product.setId(1L);
-        product.setName("Christian");
+        product.setProductName("Christian");
         Date now = current();
         product.getAudit().setCreatedOn(now);
         ProductDto productDto = ProductMapper.MAPPER.fromProduct(product);
         assertThat(productDto.getId()).isEqualTo(product.getId());
-        assertThat(productDto.getName()).isEqualTo(product.getName());
+        assertThat(productDto.getProductName()).isEqualTo(product.getProductName());
 //        assertThat(productDto.getAuditDto().getCreatedOn())
 //                .isEqualTo(product.getAudit().getCreatedOn());
     }
@@ -34,11 +34,11 @@ public class ProductMapperTest {
     public void testMapDtoToEntity() {
         ProductDto productDto = new ProductDto();
         productDto.setId(1L);
-        productDto.setName("Christian");
+        productDto.setProductName("Christian");
         productDto.getAuditDto().setCreatedOn(current());
         Product product = ProductMapper.MAPPER.toProduct(productDto);
         assertThat(product.getId()).isEqualTo(productDto.getId());
-        assertThat(product.getName()).isEqualTo(productDto.getName());
+        assertThat(product.getProductName()).isEqualTo(productDto.getProductName());
 //        assertThat(product.getAuditDto().getCreatedOn())
 //                .isEqualTo(productDto.getAudit().getCreatedOn());
     }
