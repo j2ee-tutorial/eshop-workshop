@@ -24,6 +24,9 @@
     </properties>
 
     <modules>
+        <module>api</module>
         <module>web</module>
+        <module>service</module>
+        <module>model</module>
     </modules>
 </project>
