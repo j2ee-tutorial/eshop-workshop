@@ -1,6 +1,5 @@
 package com.tasnim.trade.eshop.web.controller;
 
-import com.tasnim.trade.eshop.api.UserMapper;
 import com.tasnim.trade.eshop.api.UserService;
 import com.tasnim.trade.eshop.dto.UserDto;
 import com.tasnim.trade.eshop.util.JsonUtil;
@@ -29,9 +28,6 @@ public class LoginController {
 
     @Autowired
     private UserValidator userValidator;
-
-    @Autowired
-    private UserMapper mapper;
 
     @GetMapping("/login")
     public String login(Model model, String error, String logout) {
@@ -66,7 +62,7 @@ public class LoginController {
             return "registration";
         }
 
-        userService.save(mapper.toUser(user));
+        userService.save(user);
 
         // securityService.autoLogin(user.getUsername(), user.getPasswordConfirm());
 

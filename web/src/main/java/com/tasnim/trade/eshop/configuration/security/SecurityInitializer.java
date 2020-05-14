@@ -2,8 +2,7 @@ package com.tasnim.trade.eshop.configuration.security;
 
 import com.tasnim.trade.eshop.api.RoleService;
 import com.tasnim.trade.eshop.api.UserService;
-import com.tasnim.trade.eshop.to.Role;
-import com.tasnim.trade.eshop.to.User;
+import com.tasnim.trade.eshop.dto.UserDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +29,9 @@ public class SecurityInitializer {
 
     @EventListener
     public void addAdminUser(ApplicationReadyEvent event) {
-        User admin = new User("admin");
-        admin.getRoles().add(new Role("ADMIN"));
-        admin.getRoles().add(new Role("USER"));
+        UserDto admin = new UserDto("admin");
+//        admin.getRoles().add(new Role("ADMIN"));
+//        admin.getRoles().add(new Role("USER"));
         admin.setPassword(adminPassword);
         userService.save(admin);
     }

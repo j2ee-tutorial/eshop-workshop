@@ -2,9 +2,9 @@ package com.tasnim.trade.eshop.web.service;
 
 
 import com.tasnim.trade.eshop.api.ProductService;
+import com.tasnim.trade.eshop.dto.ProductDto;
 import com.tasnim.trade.eshop.dto.Response;
 import com.tasnim.trade.eshop.dto.SuccessfulResponse;
-import com.tasnim.trade.eshop.to.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class UserOrderRestfulService {
     public ResponseEntity<Response> getUserOrders(@PathVariable String userId) {
         LOGGER.info("Getting orders for user {}", userId);
         // Get user from security context
-        List<Product> products = productService.findAll();
+        List<ProductDto> products = productService.findAll();
         return new ResponseEntity<>(new SuccessfulResponse<>(products), HttpStatus.OK);
     }
 }

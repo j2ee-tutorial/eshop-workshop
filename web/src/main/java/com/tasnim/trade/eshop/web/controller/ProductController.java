@@ -1,7 +1,7 @@
 package com.tasnim.trade.eshop.web.controller;
 
 import com.tasnim.trade.eshop.api.ProductService;
-import com.tasnim.trade.eshop.to.Product;
+import com.tasnim.trade.eshop.dto.ProductDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class ProductController {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(5);
 
-        Page<Product> productPage = service.findAll(PageRequest.of(currentPage - 1, pageSize));
+        Page<ProductDto> productPage = service.findAll(PageRequest.of(currentPage - 1, pageSize));
         model.addAttribute("productPage", productPage);
         int totalPages = productPage.getTotalPages();
         if (totalPages > 0) {
@@ -48,15 +48,15 @@ public class ProductController {
 
     @GetMapping("/entry")
     public String entry(Model model) {
-        model.addAttribute("product", new Product());
+        model.addAttribute("product", new ProductDto());
         return "product/insert";
     }
 
     @PostMapping("/save")
-    public String save(Product product) {
+    public String save(ProductDto product) {
         try {
             LOGGER.info("Saving product");
-            Product product1 = service.save(product);
+            ProductDto product1 = service.save(product);
             LOGGER.info("Product {} saved successfully!", product1.getId());
             return "redirect:/product/list";
         } catch (Exception e) {
@@ -73,7 +73,7 @@ public class ProductController {
     }
 
     @PostMapping("/remove")
-    public String remove(@ModelAttribute(value = "selectedItem") Product product) {
+    public String remove(@ModelAttribute(value = "selectedItem") ProductDto product) {
         LOGGER.info("Remove entity entity-id: {}", product.getId());
         service.delete(product);
         return "redirect:/product/list";
