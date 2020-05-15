@@ -24,6 +24,10 @@ MariaDB [tasnim]> show columns from users;
 +----------+--------------+------+-----+---------+-------+
 ````
 
+````
+SHOW CREATE TABLE role;
+````
+
 ## Spring Security with JWT
 ### Spring Security Entry Point
 By default, the BasicAuthenticationEntryPoint provisioned by Spring Security returns 
@@ -33,3 +37,8 @@ such as a REST API where a json representation may be preferred.
 
 # Spring Boot Multi-Module Project 
 https://github.com/drahkrub/spring-boot-multi-module
+
+# Debug 
+````
+mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005"
+````

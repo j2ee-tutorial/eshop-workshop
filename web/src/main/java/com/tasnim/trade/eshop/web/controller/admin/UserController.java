@@ -1,7 +1,7 @@
 package com.tasnim.trade.eshop.web.controller.admin;
 
 import com.tasnim.trade.eshop.api.UserService;
-import com.tasnim.trade.eshop.dto.UserDto;
+import com.tasnim.trade.eshop.dto.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ public class UserController {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(5);
 
-        Page<UserDto> userPage = service.findAll(PageRequest.of(currentPage - 1, pageSize));
+        Page<User> userPage = service.findAll(PageRequest.of(currentPage - 1, pageSize));
         model.addAttribute("userPage", userPage);
         int totalPages = userPage.getTotalPages();
         if (totalPages > 0) {
@@ -52,15 +52,15 @@ public class UserController {
 
     @GetMapping("/entry")
     public String entry(Model model) {
-        model.addAttribute("user", new UserDto());
+        model.addAttribute("user", new User());
         return "admin/user/insert";
     }
 
     @PostMapping("/save")
-    public String save(UserDto user) {
+    public String save(User user) {
         try {
             LOGGER.info("Saving user");
-            UserDto user1 = service.save(user);
+            User user1 = service.save(user);
             LOGGER.info("User {} saved successfully!", user1.getUsername());
             return "redirect:/admin/user/list";
         } catch (Exception e) {

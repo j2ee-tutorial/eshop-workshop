@@ -1,14 +1,12 @@
 package com.tasnim.trade.eshop.mapper;
 
-import com.tasnim.trade.eshop.dto.UserDto;
-import com.tasnim.trade.eshop.to.User;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
-    User toUser(UserDto userDto);
+    com.tasnim.trade.eshop.to.User toUser(com.tasnim.trade.eshop.dto.User user);
 
     @InheritInverseConfiguration
-    UserDto fromUser(User user);
+    com.tasnim.trade.eshop.dto.User fromUser(com.tasnim.trade.eshop.to.User user);
 }

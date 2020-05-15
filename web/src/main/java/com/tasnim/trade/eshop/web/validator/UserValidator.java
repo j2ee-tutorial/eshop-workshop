@@ -3,7 +3,7 @@ package com.tasnim.trade.eshop.web.validator;
 import com.tasnim.trade.eshop.api.UserService;
 import com.tasnim.trade.eshop.configuration.security.PasswordComplexityConfiguration;
 import com.tasnim.trade.eshop.configuration.security.UsernameComplexityConfiguration;
-import com.tasnim.trade.eshop.dto.UserDto;
+import com.tasnim.trade.eshop.dto.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +31,13 @@ public class UserValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return UserDto.class.equals(aClass);
+        return User.class.equals(aClass);
     }
 
     @Override
     public void validate(Object o, Errors errors) {
 
-        UserDto user = (UserDto) o;
+        User user = (User) o;
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "username.could.not.be.empty");
 

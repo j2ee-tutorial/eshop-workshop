@@ -1,7 +1,7 @@
 package com.tasnim.trade.eshop.web.controller;
 
 import com.tasnim.trade.eshop.api.UserService;
-import com.tasnim.trade.eshop.dto.UserDto;
+import com.tasnim.trade.eshop.dto.User;
 import com.tasnim.trade.eshop.util.JsonUtil;
 import com.tasnim.trade.eshop.web.validator.UserValidator;
 import org.slf4j.Logger;
@@ -46,12 +46,12 @@ public class LoginController {
     @GetMapping("/registration")
     public String registration(Model model) {
         LOGGER.info("Redirecting to registration page ...");
-        model.addAttribute("user", new UserDto());
+        model.addAttribute("user", new User());
         return "registration";
     }
 
     @PostMapping("/registration")
-    public String registration(@ModelAttribute("user") UserDto user, BindingResult bindingResult) {
+    public String registration(@ModelAttribute("user") User user, BindingResult bindingResult) {
         LOGGER.info("Save user information");
         LOGGER.info("{}", JsonUtil.jsonObject(user));
 
@@ -76,7 +76,7 @@ public class LoginController {
     }
 
     @PostMapping("/save")
-    public String save(UserDto user, Model model) {
+    public String save(User user, Model model) {
         LOGGER.info(JsonUtil.jsonObject(user));
         model.addAttribute("user", user);
         return "user/profile";

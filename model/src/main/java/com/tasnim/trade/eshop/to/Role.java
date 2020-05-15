@@ -1,12 +1,11 @@
 package com.tasnim.trade.eshop.to;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "ROLE")
+@Table(name = "ROLE", uniqueConstraints = {
+        @UniqueConstraint(name = "UQ_ROLE_NAME", columnNames = {"NAME"})
+})
 @SequenceGenerator(name = "SEQUENCE_GENERATOR", sequenceName = "ROLE_SEQ")
 public class Role extends EntityBase {
 
@@ -18,7 +17,7 @@ public class Role extends EntityBase {
     }
 
     @Column(name = "name", length = 200)
-    String name;
+    private String name;
 
     public String getName() {
         return name;
