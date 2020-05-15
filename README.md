@@ -31,3 +31,5 @@ a full page for a 401 Unauthorized response back to the client. This HTML repres
 of the error renders well in a browser, but it not well suited for other scenarios, 
 such as a REST API where a json representation may be preferred.
 
+# Spring Boot Multi-Module Project 
+https://github.com/drahkrub/spring-boot-multi-module
