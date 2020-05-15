@@ -20,11 +20,15 @@ public class AuditListener {
 
     @PrePersist
     public void setCreatedOn(Auditable auditable) {
+        LOGGER.info("Auditable is kind of {}", auditable.getClass().getSimpleName());
+
         Audit audit = auditable.getAudit();
 
         LocalDateTime now = LocalDateTime.now();
         Date current = Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
+        LOGGER.info("Set current date while adding new entity");
         audit.setCreatedOn(current);
+        LOGGER.info("Set logged in user while adding new entity");
         audit.setCreatedBy(getLoggedInUser());
     }
 
@@ -39,10 +43,12 @@ public class AuditListener {
     }
 
     private String getLoggedInUser() {
+        LOGGER.info("Getting logged in user");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.getPrincipal() != null) {
             if (authentication.getPrincipal() instanceof Principal) {
                 Principal principal = (Principal) authentication.getPrincipal();
+                LOGGER.info("Acquire logged in user as {}", principal.getUsername());
                 return principal.getUsername();
             }
         }
