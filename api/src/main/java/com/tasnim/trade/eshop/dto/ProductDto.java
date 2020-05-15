@@ -2,8 +2,6 @@ package com.tasnim.trade.eshop.dto;
 
 public class ProductDto extends DtoBase {
 
-    private Long id;
-
     private String productName;
 
     private String productCode;
@@ -11,14 +9,6 @@ public class ProductDto extends DtoBase {
     private Double amount;
 
     private String currency;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getProductName() {
         return productName;

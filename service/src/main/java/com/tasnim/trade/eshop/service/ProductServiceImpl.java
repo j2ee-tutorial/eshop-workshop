@@ -59,6 +59,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDto> getTopProducts() {
         List<Product> products = repository.findAll();
+        LOGGER.info("Number of products: {}", products.size());
         return products.stream().map(mapper::fromProduct).collect(Collectors.toList());
     }
 }
