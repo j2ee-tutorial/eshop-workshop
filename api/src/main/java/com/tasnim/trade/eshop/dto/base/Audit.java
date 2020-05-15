@@ -1,8 +1,8 @@
-package com.tasnim.trade.eshop.dto;
+package com.tasnim.trade.eshop.dto.base;
 
 import java.util.Date;
 
-public class AuditDto {
+public class Audit {
 
     private Date createdOn;
 

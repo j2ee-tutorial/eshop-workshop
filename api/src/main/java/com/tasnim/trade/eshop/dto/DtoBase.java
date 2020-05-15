@@ -1,13 +1,15 @@
 package com.tasnim.trade.eshop.dto;
 
-public class DtoBase {
+import com.tasnim.trade.eshop.dto.base.Audit;
+
+public abstract class DtoBase {
 
     private Long id;
 
-    private final AuditDto auditDto;
+    private final Audit audit;
 
     DtoBase() {
-        this.auditDto = new AuditDto();
+        this.audit = new Audit();
     }
 
     public Long getId() {
@@ -18,7 +20,7 @@ public class DtoBase {
         this.id = id;
     }
 
-    public AuditDto getAuditDto() {
-        return auditDto;
+    public Audit getAudit() {
+        return audit;
     }
 }

@@ -1,7 +1,5 @@
 package com.tasnim.trade.eshop.mapper;
 
-import com.tasnim.trade.eshop.dto.AuditDto;
-import com.tasnim.trade.eshop.to.base.Audit;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -11,8 +9,8 @@ public interface AuditMapper {
 
     AuditMapper MAPPER = Mappers.getMapper(AuditMapper.class);
 
-    Audit toAudit(AuditDto auditDto);
+    com.tasnim.trade.eshop.to.base.Audit toAudit(com.tasnim.trade.eshop.dto.base.Audit audit);
 
     @InheritInverseConfiguration
-    AuditDto fromAudit(Audit audit);
+    com.tasnim.trade.eshop.dto.base.Audit fromAudit(com.tasnim.trade.eshop.to.base.Audit audit);
 }

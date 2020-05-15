@@ -1,10 +1,9 @@
 package com.tasnim.trade.eshop.service;
 
 import com.tasnim.trade.eshop.api.ProductService;
-import com.tasnim.trade.eshop.dto.ProductDto;
+import com.tasnim.trade.eshop.dto.Product;
 import com.tasnim.trade.eshop.mapper.ProductMapper;
 import com.tasnim.trade.eshop.repository.ProductRepository;
-import com.tasnim.trade.eshop.to.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,21 +26,21 @@ public class ProductServiceImpl implements ProductService {
     ProductRepository repository;
 
     @Override
-    public ProductDto save(ProductDto product) {
+    public Product save(Product product) {
         LOGGER.info("Saving product");
-        Product product1 = repository.save(mapper.toProduct(product));
+        com.tasnim.trade.eshop.to.Product product1 = repository.save(mapper.toProduct(product));
         return mapper.fromProduct(product1);
     }
 
     @Override
-    public List<ProductDto> findAll() {
+    public List<Product> findAll() {
         return repository.findAll().stream().map(mapper::fromProduct).collect(Collectors.toList());
     }
 
     @Override
-    public Page<ProductDto> findAll(Pageable pageable) {
-        Page<Product> page = repository.findAll(pageable);
-        Converter<Product, ProductDto> converter = product -> mapper.fromProduct(product);
+    public Page<Product> findAll(Pageable pageable) {
+        Page<com.tasnim.trade.eshop.to.Product> page = repository.findAll(pageable);
+        Converter<com.tasnim.trade.eshop.to.Product, com.tasnim.trade.eshop.dto.Product> converter = product -> mapper.fromProduct(product);
         return page.map(converter::convert);
     }
 
@@ -52,13 +51,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void delete(ProductDto product) {
+    public void delete(Product product) {
         repository.delete(mapper.toProduct(product));
     }
 
     @Override
-    public List<ProductDto> getTopProducts() {
-        List<Product> products = repository.findAll();
+    public List<Product> getTopProducts() {
+        List<com.tasnim.trade.eshop.to.Product> products = repository.findAll();
         LOGGER.info("Number of products: {}", products.size());
         return products.stream().map(mapper::fromProduct).collect(Collectors.toList());
     }

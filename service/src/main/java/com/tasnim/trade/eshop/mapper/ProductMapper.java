@@ -1,8 +1,5 @@
 package com.tasnim.trade.eshop.mapper;
 
-
-import com.tasnim.trade.eshop.dto.ProductDto;
-import com.tasnim.trade.eshop.to.Product;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -12,8 +9,8 @@ public interface ProductMapper {
 
     ProductMapper MAPPER = Mappers.getMapper(ProductMapper.class);
 
-    Product toProduct(ProductDto productDto);
+    com.tasnim.trade.eshop.to.Product toProduct(com.tasnim.trade.eshop.dto.Product product);
 
     @InheritInverseConfiguration
-    ProductDto fromProduct(Product product);
+    com.tasnim.trade.eshop.dto.Product fromProduct(com.tasnim.trade.eshop.to.Product product);
 }

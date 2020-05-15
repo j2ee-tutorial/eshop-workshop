@@ -1,6 +1,6 @@
 package com.tasnim.trade.eshop.dto;
 
-public class ProductDto extends DtoBase {
+public class Product extends DtoBase {
 
     private String productName;
 
