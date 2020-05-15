@@ -2,7 +2,7 @@ package com.tasnim.trade.eshop.web.service;
 
 
 import com.tasnim.trade.eshop.api.ProductService;
-import com.tasnim.trade.eshop.dto.ProductDto;
+import com.tasnim.trade.eshop.dto.Product;
 import com.tasnim.trade.eshop.dto.Response;
 import com.tasnim.trade.eshop.dto.SuccessfulResponse;
 import org.slf4j.Logger;
@@ -30,7 +30,7 @@ public class UserOrderRestfulService {
     public ResponseEntity<Response> getUserOrders(@PathVariable String userId) {
         LOGGER.info("Getting orders for user {}", userId);
         // Get user from security context
-        List<ProductDto> products = productService.findAll();
+        List<Product> products = productService.findAll();
         return new ResponseEntity<>(new SuccessfulResponse<>(products), HttpStatus.OK);
     }
 }

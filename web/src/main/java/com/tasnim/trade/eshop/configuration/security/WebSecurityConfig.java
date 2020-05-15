@@ -9,12 +9,10 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -27,17 +25,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     UserDetailsService userDetailsService;
 
-    @Autowired
-    private JwtRequestFilter jwtRequestFilter;
-
-    @Autowired
-    private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
 
-        /*
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/login").permitAll()
@@ -50,17 +41,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().formLogin().loginPage("/login").permitAll()
                 .and().logout().permitAll().logoutSuccessUrl("/")
                 .and().exceptionHandling().accessDeniedHandler(accessDeniedHandler);
-         */
-
-        http.authorizeRequests()
-                .antMatchers("/api/v1/authenticate").permitAll()
-                .antMatchers("/api/v1/users/register").permitAll()
-                .antMatchers("/api/v1/products/top").permitAll()
-                .antMatchers("/api/v1/products/festival").permitAll()
-                .anyRequest().authenticated()
-                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
-                .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint);
     }
 
     @Autowired

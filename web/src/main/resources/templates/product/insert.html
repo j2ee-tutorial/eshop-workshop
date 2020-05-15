@@ -12,7 +12,16 @@
 
     <form action="#" th:action="@{/product/save}" th:object="${product}" method="post">
         <p>
-            Name: <input type="text" th:field="*{name}">
+            Name: <input type="text" th:field="*{productName}">
+        </p>
+        <p>
+            Code: <input type="text" th:field="*{productCode}">
+        </p>
+        <p>
+            Currency: <input type="text" th:field="*{currency}">
+        </p>
+        <p>
+            Price: <input type="number" th:field="*{amount}">
         </p>
         <p>
             <input type="submit" value="Submit"/>
