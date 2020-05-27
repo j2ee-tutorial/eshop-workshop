@@ -13,7 +13,7 @@
         <groupId>com.tasnim.trade</groupId>
         <artifactId>eshop-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
-        <relativePath>..</relativePath>
+        <relativePath>../parent</relativePath>
     </parent>
 
     <build>
