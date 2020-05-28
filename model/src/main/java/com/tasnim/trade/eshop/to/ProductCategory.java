@@ -19,15 +19,15 @@ public class ProductCategory extends EntityBase {
     @Column(name = "name", length = 200)
     private String name;
 
-//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-//    @JoinColumn(name = "MASTER_CATEGORY")
-//    private ProductCategory masterCategory;
+    @ManyToOne
+    @JoinColumn(name = "MASTER_CATEGORY_ID", foreignKey = @ForeignKey(name = "FK_PRODUCT_CATEGORY_01"))
+    private ProductCategory masterCategory;
+
+    @OneToMany(mappedBy = "masterCategory")
+    private Set<ProductCategory> subCategories = new HashSet<>();
 
     @OneToMany(mappedBy = "category")
     private Set<Product> products;
-
-//    @OneToMany(cascade = {CascadeType.PERSIST})
-//    private Set<ProductCategory> categories = new HashSet<>();
 
     public String getName() {
         return name;
@@ -45,5 +45,19 @@ public class ProductCategory extends EntityBase {
         this.products = products;
     }
 
+    public ProductCategory getMasterCategory() {
+        return masterCategory;
+    }
 
+    public void setMasterCategory(ProductCategory masterCategory) {
+        this.masterCategory = masterCategory;
+    }
+
+    public Set<ProductCategory> getSubCategories() {
+        return subCategories;
+    }
+
+    public void setSubCategories(Set<ProductCategory> subCategories) {
+        this.subCategories = subCategories;
+    }
 }

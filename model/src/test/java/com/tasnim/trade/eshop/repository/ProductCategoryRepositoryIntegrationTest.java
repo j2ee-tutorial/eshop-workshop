@@ -32,8 +32,8 @@ public class ProductCategoryRepositoryIntegrationTest {
     public void whenItemsSaveUnderGel_thenGelShouldConsistAllThatItems() {
         // given
         ProductCategory gel = new ProductCategory("Gel");
-//        gel.getSubCategories().add(new ProductCategory("Gel1"));
-//        gel.getSubCategories().add(new ProductCategory("Gel2"));
+        gel.getSubCategories().add(new ProductCategory("Gel1"));
+        gel.getSubCategories().add(new ProductCategory("Gel2"));
         entityManager.persist(gel);
         entityManager.flush();
 
@@ -42,9 +42,9 @@ public class ProductCategoryRepositoryIntegrationTest {
 
         found.forEach(category -> {
             LOGGER.info(category.getName());
-//            if (category.getSubCategories() != null) {
-//                category.getSubCategories().forEach(pc -> LOGGER.info(pc.getName()));
-//            }
+            if (category.getSubCategories() != null) {
+                category.getSubCategories().forEach(pc -> LOGGER.info(pc.getName()));
+            }
         });
 
         // then
