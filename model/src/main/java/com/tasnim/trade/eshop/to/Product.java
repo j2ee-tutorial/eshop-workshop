@@ -1,20 +1,17 @@
 package com.tasnim.trade.eshop.to;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "PRODUCT")
 @SequenceGenerator(name = "SEQUENCE_GENERATOR", sequenceName = "PRODUCT_SEQ")
 public class Product extends EntityBase {
 
-    @Column(name = "PRODUCT_NAME")
-    private String productName;
+    @Column(name = "NAME", length = 200)
+    private String name;
 
-    @Column(name = "PRODUCT_CODE")
-    private String productCode;
+    @Column(name = "BARCODE")
+    private String code;
 
     @Column(name = "AMOUNT")
     private Double amount;
@@ -22,20 +19,24 @@ public class Product extends EntityBase {
     @Column(name = "CURRENCY")
     private String currency;
 
-    public String getProductName() {
-        return productName;
+    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "category_id")
+    private ProductCategory category;
+
+    public String getName() {
+        return name;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getProductCode() {
-        return productCode;
+    public String getCode() {
+        return code;
     }
 
-    public void setProductCode(String productCode) {
-        this.productCode = productCode;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public Double getAmount() {
@@ -52,5 +53,13 @@ public class Product extends EntityBase {
 
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+
+    public ProductCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(ProductCategory category) {
+        this.category = category;
     }
 }

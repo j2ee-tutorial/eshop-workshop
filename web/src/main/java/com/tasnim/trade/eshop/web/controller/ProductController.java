@@ -25,6 +25,10 @@ public class ProductController {
     @Autowired
     ProductService service;
 
+    public String x123(){
+        return "index.html";
+    }
+
     @GetMapping("/list")
     public String index(Model model,
                         @RequestParam("page") Optional<Integer> page,

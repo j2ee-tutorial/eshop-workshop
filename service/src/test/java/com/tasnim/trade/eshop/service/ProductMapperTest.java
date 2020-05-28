@@ -20,12 +20,12 @@ public class ProductMapperTest {
     public void testMapDtoFromEntity() {
         Product product = new Product();
         product.setId(1L);
-        product.setProductName("Christian");
+        product.setName("Christian");
         Date now = current();
         product.getAudit().setCreatedOn(now);
         com.tasnim.trade.eshop.dto.Product productDto = ProductMapper.MAPPER.fromProduct(product);
         assertThat(productDto.getId()).isEqualTo(product.getId());
-        assertThat(productDto.getProductName()).isEqualTo(product.getProductName());
+        assertThat(productDto.getProductName()).isEqualTo(product.getName());
 //        assertThat(productDto.getAuditDto().getCreatedOn())
 //                .isEqualTo(product.getAudit().getCreatedOn());
     }
@@ -38,7 +38,7 @@ public class ProductMapperTest {
         productDto.getAudit().setCreatedOn(current());
         Product product = ProductMapper.MAPPER.toProduct(productDto);
         assertThat(product.getId()).isEqualTo(productDto.getId());
-        assertThat(product.getProductName()).isEqualTo(productDto.getProductName());
+        assertThat(product.getName()).isEqualTo(productDto.getProductName());
 //        assertThat(product.getAuditDto().getCreatedOn())
 //                .isEqualTo(productDto.getAudit().getCreatedOn());
     }
