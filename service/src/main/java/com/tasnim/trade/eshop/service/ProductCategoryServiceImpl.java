@@ -45,8 +45,19 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
     @Override
     public void delete(Long id) {
-        LOGGER.info("Deleting product category {}", id);
-        repository.deleteById(id);
+        try {
+            LOGGER.info("Deleting product category {}", id);
+            repository.deleteById(id);
+        } catch (Exception e) {
+            print(e);
+            // LOGGER.error(e.getMessage(), e);
+        }
+    }
+
+    private void print(Throwable e) {
+        LOGGER.error("{} -> {}", e.getClass().getSimpleName(), e.getMessage());
+        if (e.getCause() != null)
+            print(e.getCause());
     }
 
     @Override
