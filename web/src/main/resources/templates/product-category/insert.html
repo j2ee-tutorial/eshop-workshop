@@ -15,6 +15,9 @@
             Name: <input type="text" th:field="*{name}">
         </p>
         <p>
+            Parent: <span type="text" th:text="*{masterCategory?.id}"></span>
+        </p>
+        <p>
             <input type="submit" value="Submit"/>
             <a th:href="@{/productCategory/list}">Cancel</a>
         </p>

@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,11 +45,17 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
     @Override
     public void delete(Long id) {
-
+        LOGGER.info("Deleting product category {}", id);
+        repository.deleteById(id);
     }
 
     @Override
     public void delete(ProductCategory productCategory) {
+        repository.delete(mapper.toProductCategory(productCategory));
+    }
 
+    @Override
+    public Optional<ProductCategory> findById(Long id) {
+        return repository.findById(id).map(mapper::fromProductCategory);
     }
 }

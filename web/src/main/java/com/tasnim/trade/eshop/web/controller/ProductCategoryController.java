@@ -2,6 +2,7 @@ package com.tasnim.trade.eshop.web.controller;
 
 import com.tasnim.trade.eshop.api.ProductCategoryService;
 import com.tasnim.trade.eshop.dto.ProductCategory;
+import com.tasnim.trade.eshop.util.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class ProductCategoryController {
     public String index(Model model,
                         @RequestParam("page") Optional<Integer> page,
                         @RequestParam("size") Optional<Integer> size) {
-        LOGGER.info("Show all product categories");
+        LOGGER.info("Show product categories");
 
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(5);
@@ -46,9 +47,25 @@ public class ProductCategoryController {
         return "product-category/index";
     }
 
+    @GetMapping("/all")
+    public String index(Model model) {
+        LOGGER.info("Show all product categories");
+
+
+        List<ProductCategory> productCategories = service.findAll();
+        model.addAttribute("productCategories", productCategories);
+        return "product-category/all";
+    }
+
     @GetMapping("/entry")
-    public String entry(Model model) {
-        model.addAttribute("productCategory", new ProductCategory());
+    public String entry(Model model, @RequestParam("masterCategoryId") Optional<Long> masterCategoryParam) {
+        ProductCategory productCategory = new ProductCategory();
+        if (masterCategoryParam.isPresent()) {
+            Long masterCategoryId = masterCategoryParam.get();
+            LOGGER.info("master category id: {}", masterCategoryId);
+            productCategory.setMasterCategory(service.findById(masterCategoryId).orElse(null));
+        }
+        model.addAttribute("productCategory", productCategory);
         return "product-category/insert";
     }
 
@@ -56,8 +73,9 @@ public class ProductCategoryController {
     public String save(ProductCategory productCategory) {
         try {
             LOGGER.info("Saving product category");
-            ProductCategory product1 = service.save(productCategory);
-            LOGGER.info("Product {} saved successfully!", product1.getId());
+            LOGGER.info(JsonUtil.jsonObject(productCategory));
+            ProductCategory productCategory1 = service.save(productCategory);
+            LOGGER.info("Product {} saved successfully!", productCategory1.getId());
             return "redirect:/productCategory/list";
         } catch (Exception e) {
             LOGGER.error("Error during saving product", e);
@@ -69,6 +87,6 @@ public class ProductCategoryController {
     public String remove(@PathVariable Long id) {
         LOGGER.info("Remove entity id: {}", id);
         service.delete(id);
-        return "redirect:/product-category/list";
+        return "redirect:/productCategory/list";
     }
 }
