@@ -22,9 +22,9 @@ import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/admin/user/")
-public class UserController {
+public class UserManagementController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserManagementController.class);
 
     @Autowired
     private UserService service;

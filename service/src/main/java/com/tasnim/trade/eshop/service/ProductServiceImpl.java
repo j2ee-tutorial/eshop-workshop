@@ -28,8 +28,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product save(Product product) {
         LOGGER.info("Saving product");
-        com.tasnim.trade.eshop.to.Product product1 = repository.save(mapper.toProduct(product));
-        return mapper.fromProduct(product1);
+        return mapper.fromProduct(repository.save(mapper.toProduct(product)));
     }
 
     @Override
@@ -39,9 +38,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<Product> findAll(Pageable pageable) {
-        Page<com.tasnim.trade.eshop.to.Product> page = repository.findAll(pageable);
         Converter<com.tasnim.trade.eshop.to.Product, com.tasnim.trade.eshop.dto.Product> converter = product -> mapper.fromProduct(product);
-        return page.map(converter::convert);
+        return repository.findAll(pageable).map(converter::convert);
     }
 
     @Override

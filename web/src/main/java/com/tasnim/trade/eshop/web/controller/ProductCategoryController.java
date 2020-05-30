@@ -1,7 +1,7 @@
 package com.tasnim.trade.eshop.web.controller;
 
-import com.tasnim.trade.eshop.api.ProductService;
-import com.tasnim.trade.eshop.dto.Product;
+import com.tasnim.trade.eshop.api.ProductCategoryService;
+import com.tasnim.trade.eshop.dto.ProductCategory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,49 +16,49 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-@RequestMapping("/product")
 @Controller
-public class ProductController {
+@RequestMapping("/productCategory")
+public class ProductCategoryController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProductCategoryController.class);
 
     @Autowired
-    ProductService service;
+    ProductCategoryService service;
 
     @GetMapping("/list")
     public String index(Model model,
                         @RequestParam("page") Optional<Integer> page,
                         @RequestParam("size") Optional<Integer> size) {
-        LOGGER.info("Show all products");
+        LOGGER.info("Show all product categories");
 
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(5);
 
-        Page<Product> productPage = service.findAll(PageRequest.of(currentPage - 1, pageSize));
-        model.addAttribute("productPage", productPage);
-        int totalPages = productPage.getTotalPages();
+        Page<ProductCategory> productCategories = service.findAll(PageRequest.of(currentPage - 1, pageSize));
+        model.addAttribute("productCategories", productCategories);
+        int totalPages = productCategories.getTotalPages();
         if (totalPages > 0) {
             List<Integer> pageNumbers = IntStream
                     .rangeClosed(1, totalPages)
                     .boxed().collect(Collectors.toList());
             model.addAttribute("pageNumbers", pageNumbers);
         }
-        return "product/index";
+        return "product-category/index";
     }
 
     @GetMapping("/entry")
     public String entry(Model model) {
-        model.addAttribute("product", new Product());
-        return "product/insert";
+        model.addAttribute("productCategory", new ProductCategory());
+        return "product-category/insert";
     }
 
     @PostMapping("/save")
-    public String save(Product product) {
+    public String save(ProductCategory productCategory) {
         try {
-            LOGGER.info("Saving product");
-            Product product1 = service.save(product);
+            LOGGER.info("Saving product category");
+            ProductCategory product1 = service.save(productCategory);
             LOGGER.info("Product {} saved successfully!", product1.getId());
-            return "redirect:/product/list";
+            return "redirect:/productCategory/list";
         } catch (Exception e) {
             LOGGER.error("Error during saving product", e);
             return null;
@@ -69,13 +69,6 @@ public class ProductController {
     public String remove(@PathVariable Long id) {
         LOGGER.info("Remove entity id: {}", id);
         service.delete(id);
-        return "redirect:/product/list";
-    }
-
-    @PostMapping("/remove")
-    public String remove(@ModelAttribute(value = "selectedItem") Product product) {
-        LOGGER.info("Remove entity entity-id: {}", product.getId());
-        service.delete(product);
-        return "redirect:/product/list";
+        return "redirect:/product-category/list";
     }
 }
