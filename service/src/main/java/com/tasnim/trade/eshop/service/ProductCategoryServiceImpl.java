@@ -2,12 +2,14 @@ package com.tasnim.trade.eshop.service;
 
 import com.tasnim.trade.eshop.api.ProductCategoryService;
 import com.tasnim.trade.eshop.dto.ProductCategory;
+import com.tasnim.trade.eshop.exception.MyDataIntegrityViolationException;
 import com.tasnim.trade.eshop.mapper.ProductCategoryMapper;
 import com.tasnim.trade.eshop.repository.ProductCategoryRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -48,9 +50,9 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         try {
             LOGGER.info("Deleting product category {}", id);
             repository.deleteById(id);
-        } catch (Exception e) {
-            print(e);
+        } catch (DataIntegrityViolationException e) {
             // LOGGER.error(e.getMessage(), e);
+            throw new MyDataIntegrityViolationException(e);
         }
     }
 

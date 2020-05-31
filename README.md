@@ -42,3 +42,11 @@ https://github.com/drahkrub/spring-boot-multi-module
 ````
 mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005"
 ````
+
+
+# Error Handling (Web Services) 
+https://dzone.com/articles/spring-rest-service-exception-handling-1
+https://dzone.com/articles/global-exception-handling-with-controlleradvice
+
+
+# Error Handling (Web Application) 

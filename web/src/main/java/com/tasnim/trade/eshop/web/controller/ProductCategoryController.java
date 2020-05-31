@@ -2,6 +2,7 @@ package com.tasnim.trade.eshop.web.controller;
 
 import com.tasnim.trade.eshop.api.ProductCategoryService;
 import com.tasnim.trade.eshop.dto.ProductCategory;
+import com.tasnim.trade.eshop.exception.MyDataIntegrityViolationException;
 import com.tasnim.trade.eshop.util.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,16 +72,16 @@ public class ProductCategoryController {
 
     @PostMapping("/save")
     public String save(ProductCategory productCategory) {
-        try {
-            LOGGER.info("Saving product category");
-            LOGGER.info(JsonUtil.jsonObject(productCategory));
-            ProductCategory productCategory1 = service.save(productCategory);
-            LOGGER.info("Product {} saved successfully!", productCategory1.getId());
-            return "redirect:/productCategory/list";
-        } catch (Exception e) {
-            LOGGER.error("Error during saving product", e);
-            return null;
-        }
+//        try {
+        LOGGER.info("Saving product category");
+        LOGGER.info(JsonUtil.jsonObject(productCategory));
+        ProductCategory productCategory1 = service.save(productCategory);
+        LOGGER.info("Product {} saved successfully!", productCategory1.getId());
+        return "redirect:/productCategory/list";
+//        } catch (Exception e) {
+//            LOGGER.error("Error during saving product", e);
+//            return null;
+//        }
     }
 
     @GetMapping("/remove/{id}")
@@ -90,3 +91,4 @@ public class ProductCategoryController {
         return "redirect:/productCategory/list";
     }
 }
+
