@@ -6,7 +6,6 @@ import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.RequestDispatcher;
@@ -23,7 +22,7 @@ public class MyErrorController implements ErrorController {
     }
 
     @RequestMapping("/error")
-    public String handleError(HttpServletRequest request) {
+    public String handleError(HttpServletRequest request, Exception e) {
         LOGGER.info("Do some logic before show the general error page");
 
         ModelAndView errorPage = new ModelAndView("errorPage");

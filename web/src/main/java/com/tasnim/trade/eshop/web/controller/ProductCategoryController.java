@@ -2,7 +2,6 @@ package com.tasnim.trade.eshop.web.controller;
 
 import com.tasnim.trade.eshop.api.ProductCategoryService;
 import com.tasnim.trade.eshop.dto.ProductCategory;
-import com.tasnim.trade.eshop.exception.MyDataIntegrityViolationException;
 import com.tasnim.trade.eshop.util.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
