@@ -47,6 +47,8 @@ mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Xdebug -Xrunjdwp:transport=
 # Error Handling (Web Services) 
 https://dzone.com/articles/spring-rest-service-exception-handling-1
 https://dzone.com/articles/global-exception-handling-with-controlleradvice
+https://thepracticaldeveloper.com/2019/09/09/custom-error-handling-rest-controllers-spring-boot/
+https://stormpath.com/blog/spring-mvc-rest-exception-handling-best-practices-part-1
 
 
 # Error Handling (Web Application) 
