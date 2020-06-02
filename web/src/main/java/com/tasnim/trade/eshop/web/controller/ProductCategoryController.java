@@ -2,7 +2,6 @@ package com.tasnim.trade.eshop.web.controller;
 
 import com.tasnim.trade.eshop.api.ProductCategoryService;
 import com.tasnim.trade.eshop.dto.ProductCategory;
-import com.tasnim.trade.eshop.exception.MyDataIntegrityViolationException;
 import com.tasnim.trade.eshop.util.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,11 +50,17 @@ public class ProductCategoryController {
     @GetMapping("/all")
     public String index(Model model) {
         LOGGER.info("Show all product categories");
-
-
         List<ProductCategory> productCategories = service.findAll();
         model.addAttribute("productCategories", productCategories);
         return "product-category/all";
+    }
+
+    @GetMapping("/profile")
+    public String profile(Model model) {
+        LOGGER.info("Show all product categories");
+        List<ProductCategory> productCategories = service.findRoot();
+        model.addAttribute("productCategories", productCategories);
+        return "product-category/profile";
     }
 
     @GetMapping("/entry")

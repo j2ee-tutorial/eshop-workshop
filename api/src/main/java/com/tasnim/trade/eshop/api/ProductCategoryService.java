@@ -12,6 +12,8 @@ public interface ProductCategoryService {
 
     List<ProductCategory> findAll();
 
+    List<ProductCategory> findRoot();
+
     Page<ProductCategory> findAll(Pageable pageable);
 
     void delete(Long id);

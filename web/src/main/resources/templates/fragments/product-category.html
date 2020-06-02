@@ -1,3 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="categories">
+    <ul>
+        <li th:each="productCategory:${productCategories}">
+            <span th:text="${productCategory.name}"></span>
+            <th:block th:include="fragments/product-category::categories" th:with="productCategories=${productCategory.subCategories}"></th:block>
+        </li>
+    </ul>
+</th:block>
 </html>

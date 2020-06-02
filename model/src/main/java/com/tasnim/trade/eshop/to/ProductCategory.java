@@ -19,14 +19,14 @@ public class ProductCategory extends EntityBase {
     @Column(name = "name", length = 200)
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "MASTER_CATEGORY_ID", foreignKey = @ForeignKey(name = "FK_PRODUCT_CATEGORY_01"))
     private ProductCategory masterCategory;
 
-    @OneToMany(mappedBy = "masterCategory")
+    @OneToMany(mappedBy = "masterCategory", fetch = FetchType.EAGER)
     private Set<ProductCategory> subCategories = new HashSet<>();
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     private Set<Product> products;
 
     public String getName() {
