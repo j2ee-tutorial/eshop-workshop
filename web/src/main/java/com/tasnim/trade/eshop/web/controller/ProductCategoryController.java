@@ -50,11 +50,17 @@ public class ProductCategoryController {
     @GetMapping("/all")
     public String index(Model model) {
         LOGGER.info("Show all product categories");
-
-
         List<ProductCategory> productCategories = service.findAll();
         model.addAttribute("productCategories", productCategories);
         return "product-category/all";
+    }
+
+    @GetMapping("/profile")
+    public String profile(Model model) {
+        LOGGER.info("Show all product categories");
+        List<ProductCategory> productCategories = service.findRoot();
+        model.addAttribute("productCategories", productCategories);
+        return "product-category/profile";
     }
 
     @GetMapping("/entry")

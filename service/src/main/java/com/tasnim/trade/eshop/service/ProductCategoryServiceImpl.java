@@ -3,6 +3,7 @@ package com.tasnim.trade.eshop.service;
 import com.tasnim.trade.eshop.api.ProductCategoryService;
 import com.tasnim.trade.eshop.dto.ProductCategory;
 import com.tasnim.trade.eshop.exception.MyDataIntegrityViolationException;
+import com.tasnim.trade.eshop.mapper.CycleAvoidingMappingContext;
 import com.tasnim.trade.eshop.mapper.ProductCategoryMapper;
 import com.tasnim.trade.eshop.repository.ProductCategoryRepository;
 import org.slf4j.Logger;
@@ -31,17 +32,32 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     @Override
     public ProductCategory save(ProductCategory productCategory) {
         LOGGER.info("Saving product category");
-        return mapper.fromProductCategory(repository.save(mapper.toProductCategory(productCategory)));
+        CycleAvoidingMappingContext mappingContext = new CycleAvoidingMappingContext();
+        return mapper.fromProductCategory(
+                repository.save(mapper.toProductCategory(productCategory, mappingContext)), mappingContext
+        );
     }
 
     @Override
     public List<ProductCategory> findAll() {
-        return repository.findAll().stream().map(mapper::fromProductCategory).collect(Collectors.toList());
+        CycleAvoidingMappingContext mappingContext = new CycleAvoidingMappingContext();
+        return repository.findAll()
+                .stream().map(p -> mapper.fromProductCategory(p, mappingContext))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductCategory> findRoot() {
+        CycleAvoidingMappingContext mappingContext = new CycleAvoidingMappingContext();
+        return repository.findAllRootCategories()
+                .stream().map(p -> mapper.fromProductCategory(p, mappingContext))
+                .collect(Collectors.toList());
     }
 
     @Override
     public Page<ProductCategory> findAll(Pageable pageable) {
-        Converter<com.tasnim.trade.eshop.to.ProductCategory, com.tasnim.trade.eshop.dto.ProductCategory> converter = productCategory -> mapper.fromProductCategory(productCategory);
+        CycleAvoidingMappingContext mappingContext = new CycleAvoidingMappingContext();
+        Converter<com.tasnim.trade.eshop.to.ProductCategory, com.tasnim.trade.eshop.dto.ProductCategory> converter = productCategory -> mapper.fromProductCategory(productCategory, mappingContext);
         return repository.findAll(pageable).map(converter::convert);
     }
 
@@ -64,11 +80,13 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
     @Override
     public void delete(ProductCategory productCategory) {
-        repository.delete(mapper.toProductCategory(productCategory));
+        CycleAvoidingMappingContext mappingContext = new CycleAvoidingMappingContext();
+        repository.delete(mapper.toProductCategory(productCategory, mappingContext));
     }
 
     @Override
     public Optional<ProductCategory> findById(Long id) {
-        return repository.findById(id).map(mapper::fromProductCategory);
+        CycleAvoidingMappingContext mappingContext = new CycleAvoidingMappingContext();
+        return repository.findById(id).map(p -> mapper.fromProductCategory(p, mappingContext));
     }
 }
