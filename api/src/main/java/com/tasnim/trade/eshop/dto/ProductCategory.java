@@ -8,6 +8,10 @@ public class ProductCategory extends DtoBase {
     public ProductCategory() {
     }
 
+    public ProductCategory(Long id) {
+        super(id);
+    }
+
     public ProductCategory(String name) {
         this.name = name;
     }

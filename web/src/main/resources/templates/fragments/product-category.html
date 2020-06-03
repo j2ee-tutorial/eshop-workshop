@@ -3,7 +3,8 @@
 <th:block th:fragment="categories">
     <ul>
         <li th:each="productCategory:${productCategories}">
-            <span th:text="${productCategory.name}"></span>
+            <a th:href="@{/productCategory/profile(productCategoryId=${productCategory.id})}"
+               th:text="${productCategory.name}"></a>
             <th:block th:include="fragments/product-category::categories" th:with="productCategories=${productCategory.subCategories}"></th:block>
         </li>
     </ul>

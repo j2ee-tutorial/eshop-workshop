@@ -2,6 +2,9 @@ package com.tasnim.trade.eshop.service;
 
 import com.tasnim.trade.eshop.api.ProductService;
 import com.tasnim.trade.eshop.dto.Product;
+import com.tasnim.trade.eshop.dto.ProductCategory;
+import com.tasnim.trade.eshop.mapper.CycleAvoidingMappingContext;
+import com.tasnim.trade.eshop.mapper.ProductCategoryMapper;
 import com.tasnim.trade.eshop.mapper.ProductMapper;
 import com.tasnim.trade.eshop.repository.ProductRepository;
 import org.slf4j.Logger;
@@ -23,6 +26,9 @@ public class ProductServiceImpl implements ProductService {
     private ProductMapper mapper;
 
     @Autowired
+    private ProductCategoryMapper productCategoryMapper;
+
+    @Autowired
     ProductRepository repository;
 
     @Override
@@ -40,6 +46,12 @@ public class ProductServiceImpl implements ProductService {
     public Page<Product> findAll(Pageable pageable) {
         Converter<com.tasnim.trade.eshop.to.Product, com.tasnim.trade.eshop.dto.Product> converter = product -> mapper.fromProduct(product);
         return repository.findAll(pageable).map(converter::convert);
+    }
+
+    @Override
+    public Page<Product> findAllByCategory(ProductCategory productCategory, Pageable pageable) {
+        Converter<com.tasnim.trade.eshop.to.Product, com.tasnim.trade.eshop.dto.Product> converter = product -> mapper.fromProduct(product);
+        return repository.findAllByCategory(productCategoryMapper.toProductCategory(productCategory, new CycleAvoidingMappingContext()), pageable).map(converter::convert);
     }
 
     @Override

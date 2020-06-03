@@ -1,6 +1,7 @@
 package com.tasnim.trade.eshop.repository;
 
 import com.tasnim.trade.eshop.to.Product;
+import com.tasnim.trade.eshop.to.ProductCategory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,6 +14,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Product findByName(String name);
 
     Page<Product> findAll(Pageable pageable);
+
+    Page<Product> findAllByCategory(ProductCategory productCategory, Pageable pageable);
 
     List<Product> findByName(String name, Pageable pageable);
 }

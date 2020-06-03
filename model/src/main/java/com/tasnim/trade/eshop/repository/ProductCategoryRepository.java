@@ -12,11 +12,13 @@ import java.util.List;
 
 @Repository
 public interface ProductCategoryRepository extends JpaRepository<ProductCategory, Long> {
-    List<ProductCategory> findByName(String name);
+    // List<ProductCategory> findByName(String name);
 
     Page<ProductCategory> findAll(Pageable pageable);
 
-    List<ProductCategory> findByName(String name, Pageable pageable);
+//    List<ProductCategory> findByName(String name, Pageable pageable);
+
+    ProductCategory findByName(String name);
 
     @Query("SELECT c FROM ProductCategory c where c.masterCategory is null")
     Collection<ProductCategory> findAllRootCategories();

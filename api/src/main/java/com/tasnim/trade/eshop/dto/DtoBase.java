@@ -8,8 +8,17 @@ public abstract class DtoBase {
 
     private final Audit audit;
 
+    private DtoBase(Audit audit) {
+        this.audit = audit;
+    }
+
     DtoBase() {
-        this.audit = new Audit();
+        this(new Audit());
+    }
+
+    public DtoBase(Long id) {
+        this(new Audit());
+        this.id = id;
     }
 
     public Long getId() {

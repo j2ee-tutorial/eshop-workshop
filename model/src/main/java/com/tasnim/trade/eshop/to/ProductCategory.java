@@ -3,9 +3,12 @@ package com.tasnim.trade.eshop.to;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.SortedSet;
 
 @Entity
-@Table(name = "PRODUCT_CATEGORY")
+@Table(name = "PRODUCT_CATEGORY", uniqueConstraints = {
+        @UniqueConstraint(name = "UQ_PRODUCT_CATEGORY_NAME", columnNames = {"NAME"})
+})
 @SequenceGenerator(name = "SEQUENCE_GENERATOR", sequenceName = "PRODUCT_CATEGORY_SEQ")
 public class ProductCategory extends EntityBase {
 

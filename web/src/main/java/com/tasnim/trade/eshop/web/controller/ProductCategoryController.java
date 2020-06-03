@@ -1,6 +1,8 @@
 package com.tasnim.trade.eshop.web.controller;
 
 import com.tasnim.trade.eshop.api.ProductCategoryService;
+import com.tasnim.trade.eshop.api.ProductService;
+import com.tasnim.trade.eshop.dto.Product;
 import com.tasnim.trade.eshop.dto.ProductCategory;
 import com.tasnim.trade.eshop.util.JsonUtil;
 import org.slf4j.Logger;
@@ -12,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -25,6 +29,9 @@ public class ProductCategoryController {
 
     @Autowired
     ProductCategoryService service;
+
+    @Autowired
+    ProductService productService;
 
     @GetMapping("/list")
     public String index(Model model,
@@ -56,10 +63,36 @@ public class ProductCategoryController {
     }
 
     @GetMapping("/profile")
-    public String profile(Model model) {
+    public String profile(Model model, HttpServletRequest request,
+                          @RequestParam("productCategoryId") Optional<Long> productCategoryId,
+                          @RequestParam("page") Optional<Integer> page,
+                          @RequestParam("size") Optional<Integer> size) {
         LOGGER.info("Show all product categories");
         List<ProductCategory> productCategories = service.findRoot();
         model.addAttribute("productCategories", productCategories);
+
+        productCategoryId.ifPresentOrElse(
+                id -> LOGGER.info("product category id: {}", id),
+                () -> LOGGER.info("product category id is empty!")
+        );
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(5);
+
+        Page<Product> productPage = Page.empty();
+        productPage = productService.findAll(PageRequest.of(currentPage - 1, pageSize));
+
+        if (productCategoryId.isPresent())
+            productPage = productService.findAllByCategory(new ProductCategory(productCategoryId.get()), PageRequest.of(currentPage - 1, pageSize));
+
+        model.addAttribute("productPage", productPage);
+        int totalPages = productPage.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream
+                    .rangeClosed(1, totalPages)
+                    .boxed().collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+
         return "product-category/profile";
     }
 

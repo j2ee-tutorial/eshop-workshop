@@ -38,6 +38,7 @@ public class ProductCategoryRepositoryIntegrationTest {
         entityManager.flush();
 
         // when
+        /*
         List<ProductCategory> found = productCategoryRepository.findByName(gel.getName());
 
         found.forEach(category -> {
@@ -46,10 +47,17 @@ public class ProductCategoryRepositoryIntegrationTest {
                 category.getSubCategories().forEach(pc -> LOGGER.info(pc.getName()));
             }
         });
+        */
+
+        ProductCategory found = productCategoryRepository.findByName(gel.getName());
+
+        LOGGER.info(found.getName());
+        if (found.getSubCategories() != null) {
+            found.getSubCategories().forEach(productCategory -> LOGGER.info(productCategory.getName()));
+        }
 
         // then
 //        assertThat(found.getName())
 //                .isEqualTo(needle.getName());
     }
-
 }

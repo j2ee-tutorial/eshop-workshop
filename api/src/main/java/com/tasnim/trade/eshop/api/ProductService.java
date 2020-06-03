@@ -1,6 +1,7 @@
 package com.tasnim.trade.eshop.api;
 
 import com.tasnim.trade.eshop.dto.Product;
+import com.tasnim.trade.eshop.dto.ProductCategory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -12,6 +13,8 @@ public interface ProductService {
     List<Product> findAll();
 
     Page<Product> findAll(Pageable pageable);
+
+    Page<Product> findAllByCategory(ProductCategory productCategory, Pageable pageable);
 
     void delete(Long id);
 
