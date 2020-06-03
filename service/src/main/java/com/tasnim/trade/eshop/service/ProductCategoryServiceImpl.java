@@ -89,4 +89,10 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         CycleAvoidingMappingContext mappingContext = new CycleAvoidingMappingContext();
         return repository.findById(id).map(p -> mapper.fromProductCategory(p, mappingContext));
     }
+
+    @Override
+    public Optional<ProductCategory> findByName(String name) {
+        CycleAvoidingMappingContext mappingContext = new CycleAvoidingMappingContext();
+        return repository.findByName(name).map(p -> mapper.fromProductCategory(p, mappingContext));
+    }
 }

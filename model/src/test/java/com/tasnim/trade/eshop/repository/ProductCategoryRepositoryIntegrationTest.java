@@ -11,7 +11,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.ANY;
 
@@ -49,12 +49,16 @@ public class ProductCategoryRepositoryIntegrationTest {
         });
         */
 
-        ProductCategory found = productCategoryRepository.findByName(gel.getName());
+        Optional<ProductCategory> found = productCategoryRepository.findByName(gel.getName());
 
-        LOGGER.info(found.getName());
-        if (found.getSubCategories() != null) {
-            found.getSubCategories().forEach(productCategory -> LOGGER.info(productCategory.getName()));
-        }
+        found.ifPresent(
+                productCategory -> {
+                    LOGGER.info(productCategory.getName());
+                    if (productCategory.getSubCategories() != null) {
+                        productCategory.getSubCategories().forEach(subCategory -> LOGGER.info(subCategory.getName()));
+                    }
+                }
+        );
 
         // then
 //        assertThat(found.getName())

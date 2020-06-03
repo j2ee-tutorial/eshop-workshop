@@ -55,6 +55,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> findAllByCategory(ProductCategory productCategory) {
+        Converter<com.tasnim.trade.eshop.to.Product, com.tasnim.trade.eshop.dto.Product> converter = product -> mapper.fromProduct(product);
+        return repository.findAllByCategory(productCategoryMapper.toProductCategory(productCategory, new CycleAvoidingMappingContext()))
+                .stream().map(converter::convert)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public void delete(Long id) {
         LOGGER.info("Deleting product {}", id);
         repository.deleteById(id);

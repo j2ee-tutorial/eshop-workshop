@@ -16,6 +16,8 @@ public interface ProductService {
 
     Page<Product> findAllByCategory(ProductCategory productCategory, Pageable pageable);
 
+    List<Product> findAllByCategory(ProductCategory productCategory);
+
     void delete(Long id);
 
     void delete(Product product);

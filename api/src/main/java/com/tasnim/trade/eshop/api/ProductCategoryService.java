@@ -21,4 +21,6 @@ public interface ProductCategoryService {
     void delete(ProductCategory productCategory);
 
     Optional<ProductCategory> findById(Long id);
+
+    Optional<ProductCategory> findByName(String name);
 }

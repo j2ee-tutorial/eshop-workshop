@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ProductCategoryRepository extends JpaRepository<ProductCategory, Long> {
@@ -18,7 +18,7 @@ public interface ProductCategoryRepository extends JpaRepository<ProductCategory
 
 //    List<ProductCategory> findByName(String name, Pageable pageable);
 
-    ProductCategory findByName(String name);
+    Optional<ProductCategory> findByName(String name);
 
     @Query("SELECT c FROM ProductCategory c where c.masterCategory is null")
     Collection<ProductCategory> findAllRootCategories();
