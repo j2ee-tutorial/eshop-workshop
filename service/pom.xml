@@ -4,15 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <artifactId>eshop-service</artifactId>
+    <version>1.0.1-SNAPSHOT</version>
+
     <parent>
         <groupId>com.tasnim.trade</groupId>
         <artifactId>eshop-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../parent</relativePath>
     </parent>
-
-    <artifactId>eshop-service</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
 
     <properties>
         <org.mapstruct.version>1.3.1.Final</org.mapstruct.version>

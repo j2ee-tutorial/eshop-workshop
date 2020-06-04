@@ -21,7 +21,7 @@ public class ProductCategoryRestfulService {
 
     @GetMapping
     public ResponseEntity<Response> index() {
-        return new ResponseEntity<>(new SuccessfulResponse<>(service.findAll()), HttpStatus.OK);
+        return new ResponseEntity<>(new SuccessfulResponse<>(service.findRoot()), HttpStatus.OK);
     }
 
     @PostMapping

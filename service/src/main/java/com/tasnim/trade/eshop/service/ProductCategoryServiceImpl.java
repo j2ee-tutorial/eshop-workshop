@@ -5,6 +5,7 @@ import com.tasnim.trade.eshop.dto.ProductCategory;
 import com.tasnim.trade.eshop.exception.MyDataIntegrityViolationException;
 import com.tasnim.trade.eshop.mapper.CycleAvoidingMappingContext;
 import com.tasnim.trade.eshop.mapper.ProductCategoryMapper;
+import com.tasnim.trade.eshop.mapper.ProductCategoryIgnoreParentMapper;
 import com.tasnim.trade.eshop.repository.ProductCategoryRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,9 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
     @Autowired
     private ProductCategoryMapper mapper;
+
+    @Autowired
+    private ProductCategoryIgnoreParentMapper productCategoryIgnoreParentMapper;
 
     @Autowired
     ProductCategoryRepository repository;
@@ -48,9 +52,8 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
     @Override
     public List<ProductCategory> findRoot() {
-        CycleAvoidingMappingContext mappingContext = new CycleAvoidingMappingContext();
         return repository.findAllRootCategories()
-                .stream().map(p -> mapper.fromProductCategory(p, mappingContext))
+                .stream().map(productCategoryIgnoreParentMapper::fromProductCategory)
                 .collect(Collectors.toList());
     }
 
