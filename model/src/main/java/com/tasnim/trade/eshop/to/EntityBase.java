@@ -2,13 +2,14 @@ package com.tasnim.trade.eshop.to;
 
 import com.tasnim.trade.eshop.to.base.Audit;
 import com.tasnim.trade.eshop.to.base.Auditable;
+import com.tasnim.trade.eshop.to.base.Printable;
 import com.tasnim.trade.eshop.to.listener.AuditListener;
 
 import javax.persistence.*;
 
 @MappedSuperclass
 @EntityListeners(AuditListener.class)
-public abstract class EntityBase implements Auditable {
+public abstract class EntityBase implements Auditable, Printable {
 
     @Id
     @GeneratedValue(generator = "SEQUENCE_GENERATOR", strategy = GenerationType.SEQUENCE)
