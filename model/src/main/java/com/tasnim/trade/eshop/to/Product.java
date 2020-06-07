@@ -23,6 +23,9 @@ public class Product extends EntityBase {
 //    @JoinColumn(name = "category_id")
     private ProductCategory category;
 
+    @ManyToOne
+    private Company manufacturer;
+
     public String getName() {
         return name;
     }
@@ -61,5 +64,13 @@ public class Product extends EntityBase {
 
     public void setCategory(ProductCategory category) {
         this.category = category;
+    }
+
+    public Company getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(Company manufacturer) {
+        this.manufacturer = manufacturer;
     }
 }

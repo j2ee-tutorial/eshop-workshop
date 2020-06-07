@@ -57,6 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/v1/users/register").permitAll()
                 .antMatchers("/api/v1/products/top").permitAll()
                 .antMatchers("/api/v1/products/festival").permitAll()
+                .antMatchers("/api/v1/products").permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)

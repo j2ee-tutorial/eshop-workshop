@@ -10,6 +10,8 @@ public class Product extends DtoBase {
 
     private String currency;
 
+    private Company manufacturer;
+
     public String getProductName() {
         return productName;
     }
@@ -40,5 +42,13 @@ public class Product extends DtoBase {
 
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+
+    public Company getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(Company manufacturer) {
+        this.manufacturer = manufacturer;
     }
 }

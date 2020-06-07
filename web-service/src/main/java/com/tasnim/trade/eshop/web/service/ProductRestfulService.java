@@ -2,10 +2,9 @@ package com.tasnim.trade.eshop.web.service;
 
 import com.tasnim.trade.eshop.api.ProductCategoryService;
 import com.tasnim.trade.eshop.api.ProductService;
-import com.tasnim.trade.eshop.dto.Product;
-import com.tasnim.trade.eshop.dto.ProductCategory;
-import com.tasnim.trade.eshop.dto.Response;
-import com.tasnim.trade.eshop.dto.SuccessfulResponse;
+import com.tasnim.trade.eshop.dto.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +18,8 @@ import java.util.Optional;
 @RequestMapping("/api/v1/products")
 @RestController
 public class ProductRestfulService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProductRestfulService.class);
 
     private final ProductService service;
 
@@ -38,7 +39,8 @@ public class ProductRestfulService {
                 products = service.findAllByCategory(productCategory.get());
             }
         }
-        return new ResponseEntity<>(new SuccessfulResponse<>(products), HttpStatus.OK);
+        ProductPackage productPackage = new ProductPackage(products);
+        return new ResponseEntity<>(new SuccessfulResponse<>(productPackage), HttpStatus.OK);
     }
 
     @GetMapping("/top")
@@ -57,5 +59,10 @@ public class ProductRestfulService {
     public ResponseEntity<Response> save(@RequestBody Product product) {
         Product product1 = service.save(product);
         return ResponseEntity.ok(new SuccessfulResponse<>(product1));
+    }
+
+    @GetMapping("/{id}")
+    public void x(@PathVariable() Long id) {
+        LOGGER.info("Id: {}");
     }
 }
