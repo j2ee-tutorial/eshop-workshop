@@ -62,8 +62,8 @@ public class ProductRestfulService {
     }
 
     @GetMapping("/{id}")
-    public void x(@PathVariable() Long id) {
-        LOGGER.info("Id: {}", id);
-
+    public Optional<Product> find(@PathVariable() Long id) {
+        LOGGER.info("Get product, Id: {}", id);
+        return service.findById(id);
     }
 }
