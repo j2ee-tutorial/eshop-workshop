@@ -24,6 +24,7 @@ public class Product extends EntityBase {
     private ProductCategory category;
 
     @ManyToOne
+    @JoinColumn(name = "manufacturer")
     private Company manufacturer;
 
     public String getName() {
