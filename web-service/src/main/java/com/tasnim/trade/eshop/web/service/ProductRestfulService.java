@@ -63,6 +63,7 @@ public class ProductRestfulService {
 
     @GetMapping("/{id}")
     public void x(@PathVariable() Long id) {
-        LOGGER.info("Id: {}");
+        LOGGER.info("Id: {}", id);
+
     }
 }
