@@ -1,26 +1,26 @@
 package com.tasnim.trade.eshop.repository;
 
 import com.tasnim.trade.eshop.to.Product;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import com.tasnim.trade.eshop.to.base.Printable;
+import org.assertj.core.api.Assertions;
+
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
-import static org.assertj.core.api.Java6Assertions.assertThat;
-import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.ANY;
-
-@RunWith(SpringRunner.class)
+/**
+ * Using junit 4 needed to uncomment @RunWith(SpringRunner.class)
+ * Otherwise productRepository will not be injected
+ */
+//@RunWith(SpringRunner.class)
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = ANY)
-public class ProductRepositoryIntegrationTest {
-
+// @AutoConfigureTestDatabase(replace = ANY)
+class ProductRepositoryIntegrationTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductRepositoryIntegrationTest.class);
 
     @Autowired
@@ -41,7 +41,7 @@ public class ProductRepositoryIntegrationTest {
         Product found = productRepository.findByName(needle.getName());
 
         // then
-        assertThat(found.getName())
+        Assertions.assertThat(found.getName())
                 .isEqualTo(needle.getName());
     }
 
@@ -62,4 +62,26 @@ public class ProductRepositoryIntegrationTest {
         List<Product> products = productRepository.findAll();
         LOGGER.info(">>>> Products count: {}", products.size());
     }
+
+    @Test
+    void listAllProducts() {
+        Product product1 = new Product();
+        product1.setName("Test01");
+        productRepository.save(product1);
+
+        Product product2 = new Product();
+        product2.setName("Test01");
+        productRepository.save(product2);
+
+        LOGGER.info("----------------------------------------");
+        List<Product> products = productRepository.findAll();
+        products.stream().map(Printable::format).forEach(LOGGER::info);
+
+        LOGGER.info("----------------------------------------");
+        productRepository.remove(product1);
+        products = productRepository.findAll();
+        products.stream().map(Printable::format).forEach(LOGGER::info);
+    }
+
+
 }

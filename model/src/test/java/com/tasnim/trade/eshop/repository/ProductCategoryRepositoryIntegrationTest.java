@@ -1,23 +1,25 @@
 package com.tasnim.trade.eshop.repository;
 
 import com.tasnim.trade.eshop.to.ProductCategory;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.EntityType;
+import javax.persistence.metamodel.Metamodel;
+import java.util.List;
 import java.util.Optional;
 
-import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.ANY;
-
-@RunWith(SpringRunner.class)
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = ANY)
 public class ProductCategoryRepositoryIntegrationTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductCategoryRepositoryIntegrationTest.class);
@@ -27,6 +29,13 @@ public class ProductCategoryRepositoryIntegrationTest {
 
     @Autowired
     private ProductCategoryRepository productCategoryRepository;
+
+    @BeforeEach
+    public void init() {
+        LOGGER.info("Add pharmaceutical product category ...");
+        ProductCategory productCategory = productCategoryRepository.save(new ProductCategory("pharmaceutical"));
+        LOGGER.info("Pharmaceutical added successfully. id: {}", productCategory.getId());
+    }
 
     @Test
     public void whenItemsSaveUnderGel_thenGelShouldConsistAllThatItems() {
@@ -63,5 +72,24 @@ public class ProductCategoryRepositoryIntegrationTest {
         // then
 //        assertThat(found.getName())
 //                .isEqualTo(needle.getName());
+    }
+
+    @Test
+    void searchProductCategoryByExample() {
+        LOGGER.info("Search for product category");
+        EntityManager em = entityManager.getEntityManager();
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<ProductCategory> query = builder.createQuery(ProductCategory.class);
+        Root<ProductCategory> productCategory = query.from(ProductCategory.class);
+        query.where(builder.like(productCategory.get("name"), "%pharmaceutical%"));
+        List<ProductCategory> productCategories = em.createQuery(query).getResultList();
+        productCategories.stream().map(ProductCategory::getName).forEach(name -> LOGGER.info("product category: {}", name));
+    }
+
+    void m1(){
+        EntityManager em = entityManager.getEntityManager();
+        Metamodel metamodel = em.getMetamodel();
+        EntityType<ProductCategory> ProductCategory_ = metamodel.entity(ProductCategory.class);
+        
     }
 }
