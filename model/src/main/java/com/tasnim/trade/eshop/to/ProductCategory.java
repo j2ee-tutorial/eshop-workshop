@@ -23,7 +23,7 @@ public class ProductCategory extends EntityBase {
     private String name;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "MASTER_CATEGORY_ID", foreignKey = @ForeignKey(name = "FK_PRODUCT_CATEGORY_01"))
+    @JoinColumn(name = "MASTER_CATEGORY_ID", foreignKey = @ForeignKey(name = "FK_PRODUCT_CATEGORY_PRODUCT_CATEGORY"))
     private ProductCategory masterCategory;
 
     @OneToMany(mappedBy = "masterCategory", fetch = FetchType.EAGER)

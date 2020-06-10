@@ -20,11 +20,11 @@ public class Product extends EntityBase {
     private String currency;
 
     @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id", foreignKey = @ForeignKey(name = "FK_PRODUCT_CATEGORY_PRODUCT"))
     private ProductCategory category;
 
     @ManyToOne
-    @JoinColumn(name = "manufacturer")
+    @JoinColumn(name = "manufacturer", foreignKey = @ForeignKey(name = "FK_COMPANY_PRODUCT"))
     private Company manufacturer;
 
     public String getName() {

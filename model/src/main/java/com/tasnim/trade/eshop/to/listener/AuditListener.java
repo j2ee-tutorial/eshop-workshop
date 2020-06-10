@@ -20,35 +20,31 @@ public class AuditListener {
 
     @PrePersist
     public void setCreatedOn(Auditable auditable) {
-        LOGGER.info("Auditable is kind of {}", auditable.getClass().getSimpleName());
-
         Audit audit = auditable.getAudit();
-
         LocalDateTime now = LocalDateTime.now();
         Date current = Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
-        LOGGER.info("Set current date while adding new entity");
         audit.setCreatedOn(current);
-        LOGGER.info("Set logged in user while adding new entity");
-        audit.setCreatedBy(getLoggedInUser());
+        String username = getLoggedInUser();
+        audit.setCreatedBy(username);
+        LOGGER.info("User [{}] is creating an instance of {} on {}", username, auditable.getClass().getSimpleName(), String.format("%tA, %tB %te, %tY %tl:%tM:%tS %Tp", current, current, current, current, current, current, current, current));
     }
 
     @PreUpdate
     public void setUpdatedOn(Auditable auditable) {
         Audit audit = auditable.getAudit();
-
         LocalDateTime now = LocalDateTime.now();
         Date current = Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
         audit.setUpdatedOn(current);
-        audit.setUpdatedBy(getLoggedInUser());
+        String username = getLoggedInUser();
+        audit.setUpdatedBy(username);
+        LOGGER.info("User [{}] is updating an instance of {} on {}", username, auditable.getClass().getSimpleName(), String.format("%tA, %tB %te, %tY %tl:%tM:%tS %Tp", current, current, current, current, current, current, current, current));
     }
 
     private String getLoggedInUser() {
-        LOGGER.info("Getting logged in user");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.getPrincipal() != null) {
             if (authentication.getPrincipal() instanceof Principal) {
                 Principal principal = (Principal) authentication.getPrincipal();
-                LOGGER.info("Acquire logged in user as {}", principal.getUsername());
                 return principal.getUsername();
             }
         }
