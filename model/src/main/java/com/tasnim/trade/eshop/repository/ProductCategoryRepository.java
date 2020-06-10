@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 @Repository
-public interface ProductCategoryRepository extends JpaRepository<ProductCategory, Long> {
+public interface ProductCategoryRepository extends JpaRepository<ProductCategory, Long>, ProductCategoryDao {
     // List<ProductCategory> findByName(String name);
 
     Page<ProductCategory> findAll(Pageable pageable);

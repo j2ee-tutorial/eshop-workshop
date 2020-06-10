@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.awt.image.ReplicateScaleFilter;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -97,5 +98,9 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     public Optional<ProductCategory> findByName(String name) {
         CycleAvoidingMappingContext mappingContext = new CycleAvoidingMappingContext();
         return repository.findByName(name).map(p -> mapper.fromProductCategory(p, mappingContext));
+    }
+
+    public void x(){
+
     }
 }
