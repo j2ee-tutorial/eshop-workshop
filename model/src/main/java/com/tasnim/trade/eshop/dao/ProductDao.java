@@ -1,4 +1,4 @@
-package com.tasnim.trade.eshop.repository;
+package com.tasnim.trade.eshop.dao;
 
 import com.tasnim.trade.eshop.to.Product;
 

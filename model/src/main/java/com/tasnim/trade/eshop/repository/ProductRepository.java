@@ -1,5 +1,6 @@
 package com.tasnim.trade.eshop.repository;
 
+import com.tasnim.trade.eshop.dao.ProductDao;
 import com.tasnim.trade.eshop.to.Product;
 import com.tasnim.trade.eshop.to.ProductCategory;
 import org.springframework.data.domain.Page;
