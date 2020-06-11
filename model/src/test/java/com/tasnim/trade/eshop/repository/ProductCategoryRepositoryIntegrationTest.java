@@ -16,11 +16,12 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.EntityType;
 import javax.persistence.metamodel.Metamodel;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
 @DataJpaTest
-public class ProductCategoryRepositoryIntegrationTest {
+class ProductCategoryRepositoryIntegrationTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductCategoryRepositoryIntegrationTest.class);
 
@@ -86,10 +87,22 @@ public class ProductCategoryRepositoryIntegrationTest {
         productCategories.stream().map(ProductCategory::getName).forEach(name -> LOGGER.info("product category: {}", name));
     }
 
-    void m1(){
+    void m1() {
         EntityManager em = entityManager.getEntityManager();
         Metamodel metamodel = em.getMetamodel();
         EntityType<ProductCategory> ProductCategory_ = metamodel.entity(ProductCategory.class);
-        
+
     }
+}
+
+interface Criteria<T> {
+    Condition getCondition();
+
+    String getField();
+
+    Collection<T> getValues();
+}
+
+enum Condition {
+    LIKE,
 }

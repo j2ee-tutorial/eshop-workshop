@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
 
-public class ProductRepositoryImpl implements ProductRepositoryDao {
+public class ProductDaoImpl implements ProductDao {
 
     @Autowired
     EntityManager entityManager;

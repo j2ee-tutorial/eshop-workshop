@@ -11,12 +11,13 @@ import java.util.Collection;
 import java.util.Optional;
 
 @Repository
-public interface ProductCategoryRepository extends JpaRepository<ProductCategory, Long>, ProductCategoryDao {
+public interface ProductCategoryRepository extends JpaRepository<ProductCategory, Long> {
+
     // List<ProductCategory> findByName(String name);
 
     Page<ProductCategory> findAll(Pageable pageable);
 
-//    List<ProductCategory> findByName(String name, Pageable pageable);
+    // List<ProductCategory> findByName(String name, Pageable pageable);
 
     Optional<ProductCategory> findByName(String name);
 
