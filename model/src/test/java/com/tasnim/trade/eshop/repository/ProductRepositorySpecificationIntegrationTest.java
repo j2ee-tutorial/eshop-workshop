@@ -14,7 +14,7 @@ import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.tasnim.trade.eshop.specification.ProductSpecifications.nameStartWith;
+import static com.tasnim.trade.eshop.specification.ProductSpecifications.nameStartsWith;
 import static com.tasnim.trade.eshop.specification.ProductSpecifications.priceIsBetween;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -62,7 +62,7 @@ class ProductRepositorySpecificationIntegrationTest {
     @Test
     void whenSearchForExpensivePen_thenItShouldBeFound() {
         List<Product> products = productRepository.findAll(
-                nameStartWith("Pen").and(priceIsBetween(3000.0, 8000.0))
+                nameStartsWith("Pen").and(priceIsBetween(3000.0, 8000.0))
         );
 
         products.stream().map(p -> String.format("id:%d, name:%s, price: %-10.2f", p.getId(), p.getName(), p.getAmount())).forEach(LOGGER::info);
