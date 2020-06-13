@@ -12,11 +12,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.EntityType;
 import javax.persistence.metamodel.Metamodel;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -87,22 +85,10 @@ class ProductCategoryRepositoryIntegrationTest {
         productCategories.stream().map(ProductCategory::getName).forEach(name -> LOGGER.info("product category: {}", name));
     }
 
-    void m1() {
+    void getEntityTypeFromMetamodel() {
         EntityManager em = entityManager.getEntityManager();
         Metamodel metamodel = em.getMetamodel();
         EntityType<ProductCategory> ProductCategory_ = metamodel.entity(ProductCategory.class);
-
     }
 }
 
-interface Criteria<T> {
-    Condition getCondition();
-
-    String getField();
-
-    Collection<T> getValues();
-}
-
-enum Condition {
-    LIKE,
-}
