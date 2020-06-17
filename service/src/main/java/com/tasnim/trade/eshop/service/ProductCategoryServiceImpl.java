@@ -4,8 +4,8 @@ import com.tasnim.trade.eshop.api.ProductCategoryService;
 import com.tasnim.trade.eshop.dto.ProductCategory;
 import com.tasnim.trade.eshop.exception.MyDataIntegrityViolationException;
 import com.tasnim.trade.eshop.mapper.CycleAvoidingMappingContext;
-import com.tasnim.trade.eshop.mapper.ProductCategoryMapper;
 import com.tasnim.trade.eshop.mapper.ProductCategoryIgnoreParentMapper;
+import com.tasnim.trade.eshop.mapper.ProductCategoryMapper;
 import com.tasnim.trade.eshop.repository.ProductCategoryRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,10 +16,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.awt.image.ReplicateScaleFilter;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static com.tasnim.trade.eshop.specification.ProductCategorySpecifications.nameStartsWith;
 
 @Service
 public class ProductCategoryServiceImpl implements ProductCategoryService {
@@ -100,7 +101,11 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         return repository.findByName(name).map(p -> mapper.fromProductCategory(p, mappingContext));
     }
 
-    public void x(){
 
+    /*
+    public List<com.tasnim.trade.eshop.to.ProductCategory> findByNameContains(String phrase) {
+        return repository.findAll(nameContains(phrase).or(nameStartsWith(phrase)));
     }
+
+     */
 }

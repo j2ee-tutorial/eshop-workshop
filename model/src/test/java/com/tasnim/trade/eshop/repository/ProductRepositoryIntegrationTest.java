@@ -3,15 +3,19 @@ package com.tasnim.trade.eshop.repository;
 import com.tasnim.trade.eshop.to.Product;
 import com.tasnim.trade.eshop.to.base.Printable;
 import org.assertj.core.api.Assertions;
-
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 
 import java.util.List;
+
+import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.ignoreCase;
 
 /**
  * Using junit 4 needed to uncomment @RunWith(SpringRunner.class)
@@ -28,6 +32,23 @@ class ProductRepositoryIntegrationTest {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @BeforeEach
+    void init() {
+        // Add cheap pencil
+        Product pencil = new Product();
+        pencil.setName("Pencil");
+        pencil.setAmount(68.0);
+        productRepository.save(pencil);
+
+        // Add expensive pen
+        Product pen = new Product();
+        pen.setName("Pen");
+        pen.setAmount(4800.0);
+        productRepository.save(pen);
+
+        LOGGER.info("Products saved successfully!");
+    }
 
     @Test
     public void whenFindByName_thenReturnEmployee() {
@@ -83,5 +104,17 @@ class ProductRepositoryIntegrationTest {
         products.stream().map(Printable::format).forEach(LOGGER::info);
     }
 
+    @Test
+    void whenProductPencilPersist_thenItShouldExist() {
+        ExampleMatcher modelMatcher = ExampleMatcher.matching()
+                .withIgnorePaths("id")
+                .withMatcher("name", ignoreCase());
 
+        Product probe = new Product();
+        probe.setName("pencil");
+        Example<Product> example = Example.of(probe, modelMatcher);
+        boolean exists = productRepository.exists(example);
+
+        Assertions.assertThat(exists).isEqualTo(true);
+    }
 }

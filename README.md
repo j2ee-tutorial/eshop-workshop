@@ -52,3 +52,5 @@ https://stormpath.com/blog/spring-mvc-rest-exception-handling-best-practices-par
 
 
 # Error Handling (Web Application) 
+https://www.baeldung.com/spring-boot-custom-error-page
+https://www.journaldev.com/2651/spring-mvc-exception-handling-controlleradvice-exceptionhandler-handlerexceptionresolver
